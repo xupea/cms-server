@@ -7,19 +7,20 @@ export const WorldFormModal = Form.create({ name: "world_form_modal" })(
   // eslint-disable-next-line
   class extends React.Component {
     render() {
-      const { visible, onCancel, onCreate, form } = this.props;
+      const { visible, onCancel, onCreate, form, world } = this.props;
       const { getFieldDecorator } = form;
+      // console.log(world);
 
       return (
         <Modal
           visible={visible}
           centered
-          title="Create a new collection"
-          okText="Create"
+          title={world ? "Edit the world" : "Create a new world"}
+          okText={world ? "Edit" : "Create"}
           onCancel={onCancel}
           onOk={onCreate}
         >
-          <WorldForm getFieldDecorator={getFieldDecorator} />
+          <WorldForm getFieldDecorator={getFieldDecorator} world={world} />
         </Modal>
       );
     }

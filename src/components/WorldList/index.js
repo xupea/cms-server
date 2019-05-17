@@ -135,7 +135,7 @@ export default class WorldList extends Component {
   };
 
   saveFormRefWorld = formRef => {
-    this.formRefTopic = formRef;
+    this.formRefWorld = formRef;
   };
 
   saveFormRefTopic = formRef => {
@@ -143,7 +143,7 @@ export default class WorldList extends Component {
   };
 
   setAddWorldModalVisible(addWorldVisible, world) {
-    this.setState({ addWorldVisible });
+    this.setState({ addWorldVisible, selectedWorld: world });
   }
 
   setDeleteWorldModalVisible = (deleteWorldVisible, world) => {
@@ -159,7 +159,7 @@ export default class WorldList extends Component {
   };
 
   handleCreateWorld = () => {
-    const form = this.formRefTopic.props.form;
+    const form = this.formRefWorld.props.form;
     form.validateFields((err, values) => {
       if (err) {
         return;
@@ -168,7 +168,7 @@ export default class WorldList extends Component {
       console.log("Received values of form: ", values);
       form.resetFields();
       this.props.addWorldAction(values);
-      this.setState({ addWorldVisible: false });
+      this.setState({ addWorldVisible: false, selectedWorld: null });
     });
   };
 
@@ -237,6 +237,7 @@ export default class WorldList extends Component {
           bordered={true}
         />
         <WorldFormModal
+          world={this.state.selectedWorld}
           wrappedComponentRef={this.saveFormRefWorld}
           visible={this.state.addWorldVisible}
           onCancel={this.handleCancel}

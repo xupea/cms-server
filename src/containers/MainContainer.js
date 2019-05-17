@@ -92,6 +92,7 @@ class Main extends Component {
           visible={this.state.editModuleVisible}
           onCancel={this.handleCancel}
           onCreate={this.handleCreate}
+          onEdit={this.handleCreate}
         />
         <Modal
           title="Delete"

@@ -8,7 +8,11 @@ export default class WorldForm extends React.Component {
   };
 
   normFile = e => {
-    console.log("Upload event:", e);
+    if (e.file.status === "done") {
+      console.log(e.file.response);
+      console.log(e);
+    }
+
     if (Array.isArray(e)) {
       return e;
     }
@@ -16,7 +20,7 @@ export default class WorldForm extends React.Component {
   };
 
   render() {
-    const { getFieldDecorator } = this.props;
+    const { getFieldDecorator, world } = this.props;
 
     const formItemLayout = {
       labelCol: {
@@ -31,7 +35,7 @@ export default class WorldForm extends React.Component {
 
     const fileList = [
       {
-        uid: "-1",
+        uid: "123123123",
         name: "xxx.png",
         status: "done",
         url:
@@ -43,7 +47,7 @@ export default class WorldForm extends React.Component {
       <Form {...formItemLayout}>
         <Form.Item label="World Name">
           {getFieldDecorator("name", {
-            initialValue: "Google",
+            initialValue: world ? world.name : "",
             rules: [
               {
                 required: true,
@@ -101,6 +105,7 @@ export default class WorldForm extends React.Component {
         </Form.Item>
         <Form.Item label="Unlock rules">
           {getFieldDecorator("unlockRules", {
+            initialValue: world ? world.unlockRules : "",
             rules: [
               {
                 type: "number"
