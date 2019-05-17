@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Modal } from "antd";
 import WorldList from "../components/WorldList";
-import { PlaylistFormModal } from "../components/PlaylistFromModal";
+import { PlaylistFormModal } from "../components/PlaylistFormModal";
 import { ModuleFormModal } from "../components/ModuleFormModal";
 
 import { connect } from "react-redux";
