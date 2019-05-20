@@ -167,7 +167,11 @@ export default class WorldList extends Component {
 
       console.log("Received values of form: ", values);
       form.resetFields();
-      this.props.addWorldAction(values);
+      if (this.state.selectedWorld) {
+        values.id = this.state.selectedWorld.id;
+        this.props.updateWorldAction(values);
+      } else this.props.addWorldAction(values);
+
       this.setState({ addWorldVisible: false, selectedWorld: null });
     });
   };

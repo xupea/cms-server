@@ -1,9 +1,10 @@
-import { CALL_API, Schemas } from "../middleware/api";
+import { CALL_API } from "../middleware/api";
 
 export const GET_WORLDS_REQUEST = "GET_WORLDS_REQUEST";
 export const GET_WORLDS_SUCCESS = "GET_WORLDS_SUCCESS";
 export const GET_WORLDS_FAILURE = "GET_WORLDS_FAILURE";
 
+// action creator
 const getWorlds = () => ({
   [CALL_API]: {
     types: [GET_WORLDS_REQUEST, GET_WORLDS_SUCCESS, GET_WORLDS_FAILURE],
@@ -29,28 +30,25 @@ const addWorld = world => ({
   }
 });
 
-export const addWorldAction = world => (dispatch, getState) => {
+export const addWorldAction = (world, oldWorld) => (dispatch, getState) => {
+  world.id = oldWorld && oldWorld.id;
   return dispatch(addWorld(world));
 };
 
 export const UPDATE_WORLD_REQUEST = "UPDATE_WORLD_REQUEST";
 export const UPDATE_WORLD_SUCCESS = "UPDATE_WORLD_SUCCESS";
 export const UPDATE_WORLD_FAILURE = "UPDATE_WORLD_FAILURE";
-export const ADD_WORLD = "ADD_WORLD";
 
 const updateWorld = world => ({
-  type: ADD_WORLD,
-  payload: [world]
+  [CALL_API]: {
+    types: [UPDATE_WORLD_REQUEST, UPDATE_WORLD_SUCCESS, UPDATE_WORLD_FAILURE],
+    endpoint: "worlds",
+    method: "POST",
+    data: world
+  }
 });
 
-// Fetches a single repository from Github API unless it is cached.
-// Relies on Redux Thunk middleware.
-export const configWorld = world => (dispatch, getState) => {
-  // const repo = getState().entities.repos[fullName]
-  // if (repo && requiredFields.every(key => repo.hasOwnProperty(key))) {
-  //   return null
-  // }
-
+export const updateWorldAction = world => (dispatch, getState) => {
   return dispatch(updateWorld(world));
 };
 
@@ -70,35 +68,6 @@ const deleteWorld = id => ({
 
 export const deleteWorldAction = id => (dispatch, getState) => {
   return dispatch(deleteWorld(id));
-};
-
-export const STARGAZERS_REQUEST = "STARGAZERS_REQUEST";
-export const STARGAZERS_SUCCESS = "STARGAZERS_SUCCESS";
-export const STARGAZERS_FAILURE = "STARGAZERS_FAILURE";
-
-// Fetches a page of stargazers for a particular repo.
-// Relies on the custom API middleware defined in ../middleware/api.js.
-const fetchStargazers = (fullName, nextPageUrl) => ({
-  fullName,
-  [CALL_API]: {
-    types: [STARGAZERS_REQUEST, STARGAZERS_SUCCESS, STARGAZERS_FAILURE],
-    endpoint: nextPageUrl,
-    schema: Schemas.ADD_WORLD_ARRAY
-  }
-});
-
-// Fetches a page of stargazers for a particular repo.
-// Bails out if page is cached and user didn't specifically request next page.
-// Relies on Redux Thunk middleware.
-export const loadStargazers = (fullName, nextPage) => (dispatch, getState) => {
-  const { nextPageUrl = `repos/${fullName}/stargazers`, pageCount = 0 } =
-    getState().pagination.stargazersByRepo[fullName] || {};
-
-  if (pageCount > 0 && !nextPage) {
-    return null;
-  }
-
-  return dispatch(fetchStargazers(fullName, nextPageUrl));
 };
 
 export const RESET_ERROR_MESSAGE = "RESET_ERROR_MESSAGE";

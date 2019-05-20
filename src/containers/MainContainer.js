@@ -9,6 +9,7 @@ import { withRouter } from "react-router-dom";
 
 import {
   addWorldAction,
+  updateWorldAction,
   deleteWorldAction,
   getWorldsAction
 } from "../redux/actions";
@@ -75,8 +76,8 @@ class Main extends Component {
         <WorldList
           source={this.props.worlds}
           addWorldAction={this.props.addWorldAction}
+          updateWorldAction={this.props.updateWorldAction}
           deleteWorldAction={this.props.deleteWorldAction}
-          configWorld={() => this.setWorldVisible(true)}
           delete={world => this.setDeleteVisible(true)}
           configTopic={() => this.setTopicVisible(true)}
           configModule={() => this.setModuleVisible(true)}
@@ -117,6 +118,7 @@ export default withRouter(
     {
       getWorldsAction,
       addWorldAction,
+      updateWorldAction,
       deleteWorldAction
     }
   )(Main)

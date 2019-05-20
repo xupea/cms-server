@@ -1,9 +1,8 @@
-import merge from "lodash/merge";
-import paginate from "./paginate";
 import { combineReducers } from "redux";
 import {
   DELETE_WORLD_SUCCESS,
   ADD_WORLD_SUCCESS,
+  UPDATE_WORLD_SUCCESS,
   GET_WORLDS_SUCCESS,
   RESET_ERROR_MESSAGE
 } from "../actions";
@@ -19,6 +18,13 @@ const worlds = (state = [], action) => {
   if (action.response && action.type === ADD_WORLD_SUCCESS) {
     console.log(action.response);
     return [...state, action.response];
+  }
+
+  if (action.response && action.type === UPDATE_WORLD_SUCCESS) {
+    console.log(action.response);
+    return [...state].map(value =>
+      value.id === action.response.id ? action.response : value
+    );
   }
 
   if (action.response && action.type === DELETE_WORLD_SUCCESS) {

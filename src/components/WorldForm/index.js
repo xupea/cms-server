@@ -9,8 +9,6 @@ export default class WorldForm extends React.Component {
 
   normFile = e => {
     if (e.file.status === "done") {
-      console.log(e.file.response);
-      console.log(e);
     }
 
     if (Array.isArray(e)) {
@@ -33,16 +31,6 @@ export default class WorldForm extends React.Component {
       }
     };
 
-    const fileList = [
-      {
-        uid: "123123123",
-        name: "xxx.png",
-        status: "done",
-        url:
-          "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-      }
-    ];
-
     return (
       <Form {...formItemLayout}>
         <Form.Item label="World Name">
@@ -56,11 +44,17 @@ export default class WorldForm extends React.Component {
             ]
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="Background Image">
-          {getFieldDecorator("backgroundImage", {
+        <Form.Item label="World Background">
+          {getFieldDecorator("worldBackground", {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile,
-            initialValue: fileList
+            initialValue: world ? world.worldBackground : null,
+            rules: [
+              {
+                required: true,
+                message: "Please upload images!"
+              }
+            ]
           })(
             <Upload
               name="sampleFile"
@@ -74,23 +68,10 @@ export default class WorldForm extends React.Component {
           )}
         </Form.Item>
         <Form.Item label="Background Story">
-          {getFieldDecorator("bgImage", {
+          {getFieldDecorator("backgroundStory", {
             valuePropName: "fileList",
-            getValueFromEvent: this.normFile
-          })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
-              <Button>
-                <Icon type="upload" /> Click to upload
-              </Button>
-            </Upload>
-          )}
-          {getFieldDecorator("bgAudio", {
-            valuePropName: "fileList",
-            getValueFromEvent: this.normFile
+            getValueFromEvent: this.normFile,
+            initialValue: world ? world.backgroundStory : null
           })(
             <Upload
               name="sampleFile"
@@ -105,7 +86,7 @@ export default class WorldForm extends React.Component {
         </Form.Item>
         <Form.Item label="Unlock rules">
           {getFieldDecorator("unlockRules", {
-            initialValue: world ? world.unlockRules : "",
+            initialValue: world ? parseInt(world.unlockRules) : 0,
             rules: [
               {
                 type: "number"
@@ -115,26 +96,13 @@ export default class WorldForm extends React.Component {
                 message: "Please input Unlock rules!"
               }
             ]
-          })(<InputNumber min={1} max={10} />)}
+          })(<InputNumber min={0} max={10} />)}
         </Form.Item>
         <Form.Item label="User Story">
-          {getFieldDecorator("upload", {
-            valuePropName: "fileList",
-            getValueFromEvent: this.normFile
-          })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
-              <Button>
-                <Icon type="upload" /> Click to upload
-              </Button>
-            </Upload>
-          )}
           {getFieldDecorator("userStory", {
             valuePropName: "fileList",
-            getValueFromEvent: this.normFile
+            getValueFromEvent: this.normFile,
+            initialValue: world ? world.userStory : null
           })(
             <Upload
               name="sampleFile"
@@ -150,7 +118,8 @@ export default class WorldForm extends React.Component {
         <Form.Item label="Levelup Audio">
           {getFieldDecorator("levelupAudio", {
             valuePropName: "fileList",
-            getValueFromEvent: this.normFile
+            getValueFromEvent: this.normFile,
+            initialValue: world ? world.levelupAudio : null
           })(
             <Upload
               name="sampleFile"
