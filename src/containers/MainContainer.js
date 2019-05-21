@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { Modal } from "antd";
 import WorldList from "../components/WorldList";
-import { PlaylistFormModal } from "../components/PlaylistFormModal";
-import { ModuleFormModal } from "../components/ModuleFormModal";
 
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -11,7 +8,10 @@ import {
   addWorldAction,
   updateWorldAction,
   deleteWorldAction,
-  getWorldsAction
+  getWorldsAction,
+  addTopicAction,
+  updateTopicAction,
+  deleteTopicAction
 } from "../redux/actions";
 
 // import "./App.css";
@@ -30,12 +30,6 @@ class Main extends Component {
 
   setDeleteVisible(deleteVisible) {
     this.setState({ deleteVisible });
-  }
-
-  setWorldVisible(editWorldVisible) {
-    // new world
-    // save world
-    this.setState({ editWorldVisible });
   }
 
   handleCancel = () => {
@@ -78,30 +72,12 @@ class Main extends Component {
           addWorldAction={this.props.addWorldAction}
           updateWorldAction={this.props.updateWorldAction}
           deleteWorldAction={this.props.deleteWorldAction}
+          addTopicAction={this.props.addTopicAction}
+          updateTopicAction={this.props.updateTopicAction}
+          deleteTopicAction={this.props.deleteTopicAction}
           delete={world => this.setDeleteVisible(true)}
           configTopic={() => this.setTopicVisible(true)}
           configModule={() => this.setModuleVisible(true)}
-        />
-        <PlaylistFormModal
-          wrappedComponentRef={this.saveFormRef}
-          visible={this.state.editTopicVisible}
-          onCancel={this.handleCancel}
-          onCreate={this.handleCreate}
-        />
-        <ModuleFormModal
-          wrappedComponentRef={this.saveFormRef}
-          visible={this.state.editModuleVisible}
-          onCancel={this.handleCancel}
-          onCreate={this.handleCreate}
-          onEdit={this.handleCreate}
-        />
-        <Modal
-          title="Delete"
-          centered
-          destroyOnClose={true}
-          visible={this.state.deleteVisible}
-          onOk={() => this.setDeleteVisible(false)}
-          onCancel={() => this.setDeleteVisible(false)}
         />
       </div>
     );
@@ -119,7 +95,10 @@ export default withRouter(
       getWorldsAction,
       addWorldAction,
       updateWorldAction,
-      deleteWorldAction
+      deleteWorldAction,
+      addTopicAction,
+      updateTopicAction,
+      deleteTopicAction
     }
   )(Main)
 );

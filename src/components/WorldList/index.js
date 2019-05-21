@@ -27,7 +27,10 @@ export default class WorldList extends Component {
         key: "operation",
         render: (text, world) => (
           <span>
-            <a href="javascript:;" onClick={() => this.props.configTopic()}>
+            <a
+              href="javascript:;"
+              onClick={() => this.setAddPlaylistModalVisible(true, world)}
+            >
               Add Playlist
             </a>
             <Divider type="vertical" />
@@ -52,7 +55,7 @@ export default class WorldList extends Component {
     this.playListColumns = [
       { title: "No.", dataIndex: "index", key: "index" },
       { title: "Topic Name", dataIndex: "name", key: "name" },
-      { title: "Topic Image", dataIndex: "image", key: "image" },
+      { title: "Topic Image", dataIndex: "", key: "image" },
       {
         title: "Operatons",
         dataIndex: "operation",
@@ -65,12 +68,15 @@ export default class WorldList extends Component {
             <Divider type="vertical" />
             <a
               href="javascript:;"
-              onClick={() => this.props.configTopic(topic)}
+              onClick={() => this.setAddPlaylistModalVisible(true, null, topic)}
             >
               Edit(Topic)
             </a>
             <Divider type="vertical" />
-            <a href="javascript:;" onClick={() => this.props.delete(topic)}>
+            <a
+              href="javascript:;"
+              onClick={() => this.setDeleteTopicModalVisible(true, topic)}
+            >
               Delete(Topic)
             </a>
           </span>
@@ -131,7 +137,8 @@ export default class WorldList extends Component {
     addTopicVisible: false,
     editTopicVisible: false,
     editModuleVisible: false,
-    selectedWorld: null
+    selectedWorld: null,
+    selectedTopic: null
   };
 
   saveFormRefWorld = formRef => {
@@ -146,6 +153,14 @@ export default class WorldList extends Component {
     this.setState({ addWorldVisible, selectedWorld: world });
   }
 
+  setAddPlaylistModalVisible(addTopicVisible, world, topic) {
+    this.setState({
+      addTopicVisible,
+      selectedWorld: world,
+      selectedTopic: topic
+    });
+  }
+
   setDeleteWorldModalVisible = (deleteWorldVisible, world) => {
     this.setState({
       deleteWorldVisible,
@@ -153,9 +168,21 @@ export default class WorldList extends Component {
     });
   };
 
+  setDeleteTopicModalVisible = (deleteTopicVisible, topic) => {
+    this.setState({
+      deleteTopicVisible,
+      selectedTopic: topic ? topic : null
+    });
+  };
+
   handleDeleteWorld = () => {
     this.props.deleteWorldAction(this.state.selectedWorld.id);
     this.setDeleteWorldModalVisible(false);
+  };
+
+  handleDeleteTopic = () => {
+    this.props.deleteTopicAction(this.state.selectedTopic);
+    this.setDeleteTopicModalVisible(false);
   };
 
   handleCreateWorld = () => {
@@ -185,8 +212,20 @@ export default class WorldList extends Component {
 
       console.log("Received values of form: ", values);
       form.resetFields();
-      this.props.addWorldAction(values);
-      this.setState({ addWorldVisible: false });
+
+      if (this.state.selectedWorld) {
+        values.wid = this.state.selectedWorld.id;
+      }
+
+      console.log(this.state.selectedTopic);
+
+      if (this.state.selectedTopic) {
+        values.id = this.state.selectedTopic.id;
+        values.wid = this.state.selectedTopic.wid;
+        this.props.updateTopicAction(values);
+      } else this.props.addTopicAction(values);
+
+      this.setState({ addTopicVisible: false, selectedWorld: null });
     });
   };
 
@@ -194,6 +233,7 @@ export default class WorldList extends Component {
     this.setState({
       addWorldVisible: false,
       deleteWorldVisible: false,
+      deleteTopicVisible: false,
       editWorldVisible: false,
       addTopicVisible: false,
       editTopicVisible: false,
@@ -248,13 +288,14 @@ export default class WorldList extends Component {
           onCreate={this.handleCreateWorld}
         />
         <PlaylistFormModal
+          topic={this.state.selectedTopic}
           wrappedComponentRef={this.saveFormRefTopic}
           visible={this.state.addTopicVisible}
           onCancel={this.handleCancel}
           onCreate={this.handleCreateTopic}
         />
         <Modal
-          title="Delete"
+          title="Delete World"
           centered
           destroyOnClose={true}
           visible={this.state.deleteWorldVisible}
@@ -262,6 +303,16 @@ export default class WorldList extends Component {
           onCancel={() => this.setDeleteWorldModalVisible(false)}
         >
           <p>Are you sure to delete this world?</p>
+        </Modal>
+        <Modal
+          title="Delete Topic"
+          centered
+          destroyOnClose={true}
+          visible={this.state.deleteTopicVisible}
+          onOk={() => this.handleDeleteTopic()}
+          onCancel={() => this.setDeleteTopicModalVisible(false)}
+        >
+          <p>Are you sure to delete this topic?</p>
         </Modal>
       </React.Fragment>
     );

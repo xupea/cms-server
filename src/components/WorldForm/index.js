@@ -2,11 +2,6 @@ import React from "react";
 import { Form, Input, Icon, Upload, Button, InputNumber } from "antd";
 
 export default class WorldForm extends React.Component {
-  state = {
-    confirmDirty: false,
-    autoCompleteResult: []
-  };
-
   normFile = e => {
     if (e.file.status === "done") {
     }

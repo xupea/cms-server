@@ -7,15 +7,6 @@ class RegistrationForm extends React.Component {
     autoCompleteResult: []
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        console.log("Received values of form: ", values);
-      }
-    });
-  };
-
   normFile = e => {
     console.log("Upload event:", e);
     if (Array.isArray(e)) {
@@ -24,42 +15,8 @@ class RegistrationForm extends React.Component {
     return e && e.fileList;
   };
 
-  handleConfirmBlur = e => {
-    const value = e.target.value;
-    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-  };
-
-  compareToFirstPassword = (rule, value, callback) => {
-    const form = this.props.form;
-    if (value && value !== form.getFieldValue("password")) {
-      callback("Two passwords that you enter is inconsistent!");
-    } else {
-      callback();
-    }
-  };
-
-  validateToNextPassword = (rule, value, callback) => {
-    const form = this.props.form;
-    if (value && this.state.confirmDirty) {
-      form.validateFields(["confirm"], { force: true });
-    }
-    callback();
-  };
-
-  handleWebsiteChange = value => {
-    let autoCompleteResult;
-    if (!value) {
-      autoCompleteResult = [];
-    } else {
-      autoCompleteResult = [".com", ".org", ".net"].map(
-        domain => `${value}${domain}`
-      );
-    }
-    this.setState({ autoCompleteResult });
-  };
-
   render() {
-    const { getFieldDecorator } = this.props.form;
+    const { getFieldDecorator, topic } = this.props;
 
     const formItemLayout = {
       labelCol: {
@@ -73,21 +30,23 @@ class RegistrationForm extends React.Component {
     };
 
     return (
-      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+      <Form {...formItemLayout}>
         <Form.Item label="Topic Name">
-          {getFieldDecorator("topicName", {
+          {getFieldDecorator("name", {
+            initialValue: topic ? topic.name : "",
             rules: [
               {
                 required: true,
-                message: "Please input your E-mail!"
+                message: "Please input topic name"
               }
             ]
           })(<Input />)}
         </Form.Item>
         <Form.Item label="Topic Image">
-          {getFieldDecorator("backgroundImage", {
+          {getFieldDecorator("image", {
             valuePropName: "fileList",
-            getValueFromEvent: this.normFile
+            getValueFromEvent: this.normFile,
+            initialValue: topic ? topic.image : null
           })(
             <Upload
               name="sampleFile"
@@ -100,10 +59,11 @@ class RegistrationForm extends React.Component {
             </Upload>
           )}
         </Form.Item>
-        <Form.Item label="Topic Info Audio">
-          {getFieldDecorator("infoAudio", {
+        <Form.Item label="Topic Intro Audio">
+          {getFieldDecorator("introAudio", {
             valuePropName: "fileList",
-            getValueFromEvent: this.normFile
+            getValueFromEvent: this.normFile,
+            initialValue: topic ? topic.introAudio : null
           })(
             <Upload
               name="sampleFile"
@@ -120,7 +80,8 @@ class RegistrationForm extends React.Component {
         <Form.Item label="Celebration Audio">
           {getFieldDecorator("celebrationAudio", {
             valuePropName: "fileList",
-            getValueFromEvent: this.normFile
+            getValueFromEvent: this.normFile,
+            initialValue: topic ? topic.celebrationAudio : null
           })(
             <Upload
               name="sampleFile"
@@ -134,23 +95,10 @@ class RegistrationForm extends React.Component {
           )}
         </Form.Item>
         <Form.Item label="Badge">
-          {getFieldDecorator("badgeImage", {
+          {getFieldDecorator("badges", {
             valuePropName: "fileList",
-            getValueFromEvent: this.normFile
-          })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
-              <Button>
-                <Icon type="upload" /> Click to upload
-              </Button>
-            </Upload>
-          )}
-          {getFieldDecorator("badgeAudio", {
-            valuePropName: "fileList",
-            getValueFromEvent: this.normFile
+            getValueFromEvent: this.normFile,
+            initialValue: topic ? topic.badges : null
           })(
             <Upload
               name="sampleFile"

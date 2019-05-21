@@ -70,6 +70,57 @@ export const deleteWorldAction = id => (dispatch, getState) => {
   return dispatch(deleteWorld(id));
 };
 
+export const ADD_TOPIC_REQUEST = "ADD_TOPIC_REQUEST";
+export const ADD_TOPIC_SUCCESS = "ADD_TOPIC_SUCCESS";
+export const ADD_TOPIC_FAILURE = "ADD_TOPIC_FAILURE";
+
+const addTopic = topic => ({
+  [CALL_API]: {
+    types: [ADD_TOPIC_REQUEST, ADD_TOPIC_SUCCESS, ADD_TOPIC_FAILURE],
+    endpoint: "topics",
+    method: "POST",
+    data: topic
+  }
+});
+
+export const addTopicAction = topic => (dispatch, getState) => {
+  return dispatch(addTopic(topic));
+};
+
+export const UPDATE_TOPIC_REQUEST = "UPDATE_TOPIC_REQUEST";
+export const UPDATE_TOPIC_SUCCESS = "UPDATE_TOPIC_SUCCESS";
+export const UPDATE_TOPIC_FAILURE = "UPDATE_TOPIC_FAILURE";
+
+const updateTopic = topic => ({
+  [CALL_API]: {
+    types: [UPDATE_TOPIC_REQUEST, UPDATE_TOPIC_SUCCESS, UPDATE_TOPIC_FAILURE],
+    endpoint: "topics",
+    method: "POST",
+    data: topic
+  }
+});
+
+export const updateTopicAction = topic => (dispatch, getState) => {
+  return dispatch(updateTopic(topic));
+};
+
+export const DELETE_TOPIC_REQUEST = "DELETE_TOPIC_REQUEST";
+export const DELETE_TOPIC_SUCCESS = "DELETE_TOPIC_SUCCESS";
+export const DELETE_TOPIC_FAILURE = "DELETE_TOPIC_FAILURE";
+
+const deleteTopic = topic => ({
+  [CALL_API]: {
+    types: [DELETE_TOPIC_REQUEST, DELETE_TOPIC_SUCCESS, DELETE_TOPIC_FAILURE],
+    endpoint: "topics",
+    method: "delete",
+    data: topic
+  }
+});
+
+export const deleteTopicAction = topic => (dispatch, getState) => {
+  return dispatch(deleteTopic(topic));
+};
+
 export const RESET_ERROR_MESSAGE = "RESET_ERROR_MESSAGE";
 
 // Resets the currently visible error message.

@@ -1,9 +1,14 @@
 import { combineReducers } from "redux";
+import findLast from "lodash/findLast";
+import remove from "lodash/remove";
 import {
   DELETE_WORLD_SUCCESS,
   ADD_WORLD_SUCCESS,
   UPDATE_WORLD_SUCCESS,
   GET_WORLDS_SUCCESS,
+  ADD_TOPIC_SUCCESS,
+  UPDATE_TOPIC_SUCCESS,
+  DELETE_TOPIC_SUCCESS,
   RESET_ERROR_MESSAGE
 } from "../actions";
 
@@ -31,6 +36,34 @@ const worlds = (state = [], action) => {
     const data = state.filter(world => world.id !== action.response.id);
     console.log(data);
     return data;
+  }
+
+  if (action.response && action.type === ADD_TOPIC_SUCCESS) {
+    console.log(action.response);
+    const world = findLast(state, value => value.id === action.response.wid);
+    world.topics.push(action.response);
+    world.playlistCount = world.topics.length;
+    return [...state];
+  }
+
+  if (action.response && action.type === UPDATE_TOPIC_SUCCESS) {
+    console.log(action.response);
+    const world = findLast(state, value => value.id === action.response.wid);
+    console.log(world);
+    const topic = findLast(
+      world.topics,
+      value => value.id === action.response.id
+    );
+    Object.assign(topic, action.response);
+    return [...state];
+  }
+
+  if (action.response && action.type === DELETE_TOPIC_SUCCESS) {
+    console.log(action.response);
+    const world = findLast(state, value => value.id === action.response.wid);
+    remove(world.topics, value => value.id === action.response.id);
+    world.playlistCount = world.topics.length;
+    return [...state];
   }
 
   if (action.response && action.type === GET_WORLDS_SUCCESS) {

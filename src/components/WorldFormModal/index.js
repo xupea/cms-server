@@ -8,7 +8,7 @@ export const WorldFormModal = Form.create({ name: "world_form_modal" })(
   class extends React.Component {
     render() {
       const { visible, onCancel, onCreate, form, world } = this.props;
-      const { getFieldDecorator, getFieldValue } = form;
+      const { getFieldDecorator } = form;
 
       return (
         <Modal
