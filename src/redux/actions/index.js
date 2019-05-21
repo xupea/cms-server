@@ -5,11 +5,11 @@ export const GET_WORLDS_SUCCESS = "GET_WORLDS_SUCCESS";
 export const GET_WORLDS_FAILURE = "GET_WORLDS_FAILURE";
 
 // action creator
-const getWorlds = () => ({
+export const getWorlds = () => ({
   [CALL_API]: {
     types: [GET_WORLDS_REQUEST, GET_WORLDS_SUCCESS, GET_WORLDS_FAILURE],
     endpoint: "worlds",
-    method: "GET"
+    method: "get"
   }
 });
 
@@ -21,11 +21,11 @@ export const ADD_WORLD_REQUEST = "ADD_WORLD_REQUEST";
 export const ADD_WORLD_SUCCESS = "ADD_WORLD_SUCCESS";
 export const ADD_WORLD_FAILURE = "ADD_WORLD_FAILURE";
 
-const addWorld = world => ({
+export const addWorld = world => ({
   [CALL_API]: {
     types: [ADD_WORLD_REQUEST, ADD_WORLD_SUCCESS, ADD_WORLD_FAILURE],
     endpoint: "worlds",
-    method: "POST",
+    method: "post",
     data: world
   }
 });
@@ -39,11 +39,11 @@ export const UPDATE_WORLD_REQUEST = "UPDATE_WORLD_REQUEST";
 export const UPDATE_WORLD_SUCCESS = "UPDATE_WORLD_SUCCESS";
 export const UPDATE_WORLD_FAILURE = "UPDATE_WORLD_FAILURE";
 
-const updateWorld = world => ({
+export const updateWorld = world => ({
   [CALL_API]: {
     types: [UPDATE_WORLD_REQUEST, UPDATE_WORLD_SUCCESS, UPDATE_WORLD_FAILURE],
     endpoint: "worlds",
-    method: "POST",
+    method: "post",
     data: world
   }
 });
@@ -56,8 +56,7 @@ export const DELETE_WORLD_REQUEST = "DELETE_WORLD_REQUEST";
 export const DELETE_WORLD_SUCCESS = "DELETE_WORLD_SUCCESS";
 export const DELETE_WORLD_FAILURE = "DELETE_WORLD_FAILURE";
 
-const deleteWorld = id => ({
-  id,
+export const deleteWorld = id => ({
   [CALL_API]: {
     types: [DELETE_WORLD_REQUEST, DELETE_WORLD_SUCCESS, DELETE_WORLD_FAILURE],
     endpoint: "worlds",
@@ -74,11 +73,11 @@ export const ADD_TOPIC_REQUEST = "ADD_TOPIC_REQUEST";
 export const ADD_TOPIC_SUCCESS = "ADD_TOPIC_SUCCESS";
 export const ADD_TOPIC_FAILURE = "ADD_TOPIC_FAILURE";
 
-const addTopic = topic => ({
+export const addTopic = topic => ({
   [CALL_API]: {
     types: [ADD_TOPIC_REQUEST, ADD_TOPIC_SUCCESS, ADD_TOPIC_FAILURE],
     endpoint: "topics",
-    method: "POST",
+    method: "post",
     data: topic
   }
 });
@@ -91,11 +90,11 @@ export const UPDATE_TOPIC_REQUEST = "UPDATE_TOPIC_REQUEST";
 export const UPDATE_TOPIC_SUCCESS = "UPDATE_TOPIC_SUCCESS";
 export const UPDATE_TOPIC_FAILURE = "UPDATE_TOPIC_FAILURE";
 
-const updateTopic = topic => ({
+export const updateTopic = topic => ({
   [CALL_API]: {
     types: [UPDATE_TOPIC_REQUEST, UPDATE_TOPIC_SUCCESS, UPDATE_TOPIC_FAILURE],
     endpoint: "topics",
-    method: "POST",
+    method: "post",
     data: topic
   }
 });
@@ -108,7 +107,7 @@ export const DELETE_TOPIC_REQUEST = "DELETE_TOPIC_REQUEST";
 export const DELETE_TOPIC_SUCCESS = "DELETE_TOPIC_SUCCESS";
 export const DELETE_TOPIC_FAILURE = "DELETE_TOPIC_FAILURE";
 
-const deleteTopic = topic => ({
+export const deleteTopic = topic => ({
   [CALL_API]: {
     types: [DELETE_TOPIC_REQUEST, DELETE_TOPIC_SUCCESS, DELETE_TOPIC_FAILURE],
     endpoint: "topics",
@@ -120,10 +119,3 @@ const deleteTopic = topic => ({
 export const deleteTopicAction = topic => (dispatch, getState) => {
   return dispatch(deleteTopic(topic));
 };
-
-export const RESET_ERROR_MESSAGE = "RESET_ERROR_MESSAGE";
-
-// Resets the currently visible error message.
-export const resetErrorMessage = () => ({
-  type: RESET_ERROR_MESSAGE
-});

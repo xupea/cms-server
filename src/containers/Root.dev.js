@@ -11,7 +11,7 @@ const Root = ({ store }) => (
     <div>
       <Route exact path="/" component={MainContainer} />
       {/* <Route path="/about" component={PlaylistForm} /> */}
-      {/* <DevTools /> */}
+      <DevTools />
     </div>
   </Provider>
 );
