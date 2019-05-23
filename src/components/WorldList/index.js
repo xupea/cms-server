@@ -1,19 +1,29 @@
+/* eslint-disable no-script-url */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import { Table, Divider, Button, Modal } from "antd";
 import { WorldFormModal } from "../../components/WorldFormModal";
 import { PlaylistFormModal } from "../../components/PlaylistFormModal";
+import { ModuleFormModal } from "../../components/ModuleFormModal";
+import { QuestionFormModal } from "../QuestionFormModal";
 
 export default class WorldList extends Component {
   constructor(props) {
     super(props);
 
     this.worldColumns = [
-      { title: "No.", dataIndex: "index", key: "index" },
+      {
+        title: "No.",
+        dataIndex: "index",
+        key: "index",
+        render: (text, record, index) => index + 1
+      },
       { title: "World Name", dataIndex: "name", key: "name" },
       {
-        title: "Playlist Count",
+        title: "Topic Count",
         dataIndex: "playlistCount",
-        key: "playlistCount"
+        key: "playlistCount",
+        render: (text, record) => record.topics.length
       },
       {
         title: "Latest Update Time",
@@ -31,7 +41,7 @@ export default class WorldList extends Component {
               href="javascript:;"
               onClick={() => this.setAddPlaylistModalVisible(true, world)}
             >
-              Add Playlist
+              Add Topic
             </a>
             <Divider type="vertical" />
             <a
@@ -53,16 +63,23 @@ export default class WorldList extends Component {
     ];
 
     this.playListColumns = [
-      { title: "No.", dataIndex: "index", key: "index" },
       { title: "Topic Name", dataIndex: "name", key: "name" },
-      { title: "Topic Image", dataIndex: "", key: "image" },
+      {
+        title: "Module Count",
+        dataIndex: "",
+        key: "",
+        render: (text, record) => record.modules.length
+      },
       {
         title: "Operatons",
         dataIndex: "operation",
         key: "operation",
         render: (text, topic) => (
           <span>
-            <a href="javascript:;" onClick={() => this.props.configModule()}>
+            <a
+              href="javascript:;"
+              onClick={() => this.setAddModuleModalVisible(true, null, topic)}
+            >
               Add Module
             </a>
             <Divider type="vertical" />
@@ -85,8 +102,12 @@ export default class WorldList extends Component {
     ];
 
     this.moduleColumns = [
-      { title: "No.", dataIndex: "index", key: "index" },
-      { title: "Module Name", dataIndex: "name", key: "name" },
+      {
+        title: "No.",
+        dataIndex: "index",
+        key: "index",
+        render: (text, record, index) => `Module ${index + 1}`
+      },
       { title: "Type", dataIndex: "type", key: "type" },
       {
         title: "Operatons",
@@ -94,11 +115,32 @@ export default class WorldList extends Component {
         key: "operation",
         render: (text, mod) => (
           <span>
-            <a href="javascript:;" onClick={() => this.props.configModule(mod)}>
+            {mod.type === "trivia" ? (
+              <span>
+                <a
+                  href="javascript:;"
+                  onClick={() =>
+                    this.setAddQuestionModalVisible(true, null, null, mod)
+                  }
+                >
+                  Add Question
+                </a>
+                <Divider type="vertical" />
+              </span>
+            ) : null}
+            <a
+              href="javascript:;"
+              onClick={() =>
+                this.setAddModuleModalVisible(true, null, null, mod)
+              }
+            >
               Edit
             </a>
             <Divider type="vertical" />
-            <a href="javascript:;" onClick={() => this.props.delete(mod)}>
+            <a
+              href="javascript:;"
+              onClick={() => this.setDeleteModuleModalVisible(true, mod)}
+            >
               Delete
             </a>
           </span>
@@ -106,26 +148,52 @@ export default class WorldList extends Component {
       }
     ];
 
-    // sample datasource
-    this.dataSource = [
+    this.questionColumns = [
       {
-        index: 1,
-        name: "Inside Corbit",
-        playlistCount: "10",
-        updateTime: "2014-12-24 23:12:00",
-        creator: "Peter",
-        createdAt: "2014-12-24 23:12:00",
-        topics: [
-          {
-            index: 1,
-            name: "Topic 1",
-            image: "Image URL",
-            modules: [
-              { id: "module1", name: "Module1", type: "Factoid", index: 1 },
-              { id: "module2", name: "Module2", type: "DIY", index: 2 }
-            ]
-          }
-        ]
+        title: "No.",
+        dataIndex: "index",
+        key: "index1",
+        render: (text, record, index) => `Question ${index + 1}`
+      },
+      {
+        title: "Question Type",
+        dataIndex: "type",
+        key: "type"
+      },
+      {
+        title: "Question Text",
+        dataIndex: "questionText",
+        key: "questionText"
+      },
+      {
+        title: "Operatons",
+        dataIndex: "operation",
+        key: "operation",
+        render: (text, question) => (
+          <span>
+            <a
+              href="javascript:;"
+              onClick={() =>
+                this.setAddQuestionModalVisible(
+                  true,
+                  null,
+                  null,
+                  null,
+                  question
+                )
+              }
+            >
+              Edit
+            </a>
+            <Divider type="vertical" />
+            <a
+              href="javascript:;"
+              onClick={() => this.setDeleteQuestionModalVisible(true, question)}
+            >
+              Delete
+            </a>
+          </span>
+        )
       }
     ];
   }
@@ -136,9 +204,16 @@ export default class WorldList extends Component {
     editWorldVisible: false,
     addTopicVisible: false,
     editTopicVisible: false,
+    addModuleVisible: false,
     editModuleVisible: false,
+    deleteModuleVisible: false,
+    addQuestionVisible: false,
+    updateQuestionVisible: false,
+    deleteQuestionVisible: false,
     selectedWorld: null,
-    selectedTopic: null
+    selectedTopic: null,
+    selectedModule: null,
+    selectedQuestion: null
   };
 
   saveFormRefWorld = formRef => {
@@ -149,8 +224,36 @@ export default class WorldList extends Component {
     this.formRefTopic = formRef;
   };
 
+  saveFormRefModule = formRef => {
+    this.formRefModule = formRef;
+  };
+
+  saveFormRefQuestion = formRef => {
+    this.formRefQuestion = formRef;
+  };
+
   setAddWorldModalVisible(addWorldVisible, world) {
     this.setState({ addWorldVisible, selectedWorld: world });
+  }
+
+  setAddQuestionModalVisible(addQuestionVisible, world, topic, mod, question) {
+    this.setState({
+      addQuestionVisible,
+      selectedWorld: world,
+      selectedTopic: topic,
+      selectedModule: mod,
+      selectedQuestion: question
+    });
+  }
+
+  setAddModuleModalVisible(addModuleVisible, world, topic, mod) {
+    console.log(mod);
+    this.setState({
+      addModuleVisible,
+      selectedWorld: world,
+      selectedTopic: topic,
+      selectedModule: mod
+    });
   }
 
   setAddPlaylistModalVisible(addTopicVisible, world, topic) {
@@ -175,6 +278,20 @@ export default class WorldList extends Component {
     });
   };
 
+  setDeleteModuleModalVisible = (deleteModuleVisible, mod) => {
+    this.setState({
+      deleteModuleVisible,
+      selectedModule: mod ? mod : null
+    });
+  };
+
+  setDeleteQuestionModalVisible = (deleteQuestionVisible, mod) => {
+    this.setState({
+      deleteQuestionVisible,
+      selectedModule: mod ? mod : null
+    });
+  };
+
   handleDeleteWorld = () => {
     this.props.deleteWorldAction(this.state.selectedWorld.id);
     this.setDeleteWorldModalVisible(false);
@@ -183,6 +300,16 @@ export default class WorldList extends Component {
   handleDeleteTopic = () => {
     this.props.deleteTopicAction(this.state.selectedTopic);
     this.setDeleteTopicModalVisible(false);
+  };
+
+  handleDeleteModule = () => {
+    this.props.deleteModuleAction(this.state.selectedModule);
+    this.setDeleteModuleModalVisible(false);
+  };
+
+  handleDeleteQuestion = () => {
+    this.props.deleteQuestionAction(this.state.selectedModule);
+    this.setDeleteQuestionModalVisible(false);
   };
 
   handleCreateWorld = () => {
@@ -225,7 +352,61 @@ export default class WorldList extends Component {
         this.props.updateTopicAction(values);
       } else this.props.addTopicAction(values);
 
-      this.setState({ addTopicVisible: false, selectedWorld: null });
+      this.setState({ addTopicVisible: false, selectedTopic: null });
+    });
+  };
+
+  handleCreateModule = () => {
+    const form = this.formRefModule.props.form;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+
+      console.log("Received values of form: ", values);
+      form.resetFields();
+
+      if (this.state.selectedTopic) {
+        values.tid = this.state.selectedTopic.id;
+        values.wid = this.state.selectedTopic.wid;
+      }
+
+      if (this.state.selectedModule) {
+        values.id = this.state.selectedModule.id;
+        values.wid = this.state.selectedModule.wid;
+        values.tid = this.state.selectedModule.tid;
+        this.props.updateModuleAction(values);
+      } else this.props.addModuleAction(values);
+
+      this.setState({ addModuleVisible: false, selectedModule: null });
+    });
+  };
+
+  handleCreateQuestion = () => {
+    const form = this.formRefQuestion.props.form;
+    form.validateFields((err, values) => {
+      if (err) {
+        return;
+      }
+
+      console.log("Received values of form: ", values);
+      form.resetFields();
+
+      if (this.state.selectedModule) {
+        values.mid = this.state.selectedModule.id;
+        values.wid = this.state.selectedModule.wid;
+        values.tid = this.state.selectedModule.tid;
+      }
+
+      if (this.state.selectedQuestion) {
+        values.id = this.state.selectedQuestion.id;
+        values.mid = this.state.selectedQuestion.mid;
+        values.wid = this.state.selectedQuestion.wid;
+        values.tid = this.state.selectedQuestion.tid;
+        this.props.updateQuestionAction(values);
+      } else this.props.addQuestionAction(values);
+
+      this.setState({ addQuestionVisible: false, selectedQuestion: null });
     });
   };
 
@@ -237,29 +418,45 @@ export default class WorldList extends Component {
       editWorldVisible: false,
       addTopicVisible: false,
       editTopicVisible: false,
-      editModuleVisible: false
+      editModuleVisible: false,
+      addModuleVisible: false,
+      addQuestionVisible: false,
+      editQuestionVisible: false,
+      deleteQuestionVisible: false
     });
   };
 
-  moduleRowRender = record => {
+  questionRowRender = mod => {
     return (
       <Table
-        columns={this.moduleColumns}
-        dataSource={record.modules}
+        columns={this.questionColumns}
+        dataSource={mod.questions}
         pagination={false}
-        bordered={true}
+        rowKey={record => record.id}
       />
     );
   };
 
-  topicRowRender = record => {
+  moduleRowRender = topic => {
+    return (
+      <Table
+        columns={this.moduleColumns}
+        dataSource={topic.modules}
+        expandedRowRender={this.questionRowRender}
+        pagination={false}
+        rowKey={record => record.id}
+      />
+    );
+  };
+
+  topicRowRender = world => {
     return (
       <Table
         columns={this.playListColumns}
-        dataSource={record.topics}
+        dataSource={world.topics}
         pagination={false}
+        rowKey={record => record.id}
         expandedRowRender={this.moduleRowRender}
-        bordered={true}
       />
     );
   };
@@ -277,8 +474,8 @@ export default class WorldList extends Component {
           className="components-table-demo-nested"
           columns={this.worldColumns}
           expandedRowRender={this.topicRowRender}
+          rowKey={record => record.id}
           dataSource={this.props.source}
-          bordered={true}
         />
         <WorldFormModal
           world={this.state.selectedWorld}
@@ -293,6 +490,20 @@ export default class WorldList extends Component {
           visible={this.state.addTopicVisible}
           onCancel={this.handleCancel}
           onCreate={this.handleCreateTopic}
+        />
+        <ModuleFormModal
+          mod={this.state.selectedModule}
+          wrappedComponentRef={this.saveFormRefModule}
+          visible={this.state.addModuleVisible}
+          onCancel={this.handleCancel}
+          onCreate={this.handleCreateModule}
+        />
+        <QuestionFormModal
+          question={this.state.selectedQuestion}
+          wrappedComponentRef={this.saveFormRefQuestion}
+          visible={this.state.addQuestionVisible}
+          onCancel={this.handleCancel}
+          onCreate={this.handleCreateQuestion}
         />
         <Modal
           title="Delete World"
@@ -313,6 +524,26 @@ export default class WorldList extends Component {
           onCancel={() => this.setDeleteTopicModalVisible(false)}
         >
           <p>Are you sure to delete this topic?</p>
+        </Modal>
+        <Modal
+          title="Delete Module"
+          centered
+          destroyOnClose={true}
+          visible={this.state.deleteModuleVisible}
+          onOk={() => this.handleDeleteModule()}
+          onCancel={() => this.setDeleteModuleModalVisible(false)}
+        >
+          <p>Are you sure to delete this module?</p>
+        </Modal>
+        <Modal
+          title="Delete Question"
+          centered
+          destroyOnClose={true}
+          visible={this.state.deleteQuestionVisible}
+          onOk={() => this.handleDeleteQuestion()}
+          onCancel={() => this.setDeleteQuestionModalVisible(false)}
+        >
+          <p>Are you sure to delete this question?</p>
         </Modal>
       </React.Fragment>
     );

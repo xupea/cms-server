@@ -119,3 +119,121 @@ export const deleteTopic = topic => ({
 export const deleteTopicAction = topic => (dispatch, getState) => {
   return dispatch(deleteTopic(topic));
 };
+
+export const ADD_MODULE_REQUEST = "ADD_MODULE_REQUEST";
+export const ADD_MODULE_SUCCESS = "ADD_MODULE_SUCCESS";
+export const ADD_MODULE_FAILURE = "ADD_MODULE_FAILURE";
+
+export const addModule = mod => ({
+  [CALL_API]: {
+    types: [ADD_MODULE_REQUEST, ADD_MODULE_SUCCESS, ADD_MODULE_FAILURE],
+    endpoint: "modules",
+    method: "post",
+    data: mod
+  }
+});
+
+export const addModuleAction = mod => (dispatch, getState) => {
+  return dispatch(addModule(mod));
+};
+
+export const UPDATE_MODULE_REQUEST = "UPDATE_MODULE_REQUEST";
+export const UPDATE_MODULE_SUCCESS = "UPDATE_MODULE_SUCCESS";
+export const UPDATE_MODULE_FAILURE = "UPDATE_MODULE_FAILURE";
+
+export const updateModule = mod => ({
+  [CALL_API]: {
+    types: [
+      UPDATE_MODULE_REQUEST,
+      UPDATE_MODULE_SUCCESS,
+      UPDATE_MODULE_FAILURE
+    ],
+    endpoint: "modules",
+    method: "post",
+    data: mod
+  }
+});
+
+export const updateModuleAction = mod => (dispatch, getState) => {
+  return dispatch(updateModule(mod));
+};
+
+export const DELETE_MODULE_REQUEST = "DELETE_MODULE_REQUEST";
+export const DELETE_MODULE_SUCCESS = "DELETE_MODULE_SUCCESS";
+export const DELETE_MODULE_FAILURE = "DELETE_MODULE_FAILURE";
+
+export const deleteModule = mod => ({
+  [CALL_API]: {
+    types: [
+      DELETE_MODULE_REQUEST,
+      DELETE_MODULE_SUCCESS,
+      DELETE_MODULE_FAILURE
+    ],
+    endpoint: "modules",
+    method: "delete",
+    data: mod
+  }
+});
+
+export const deleteModuleAction = mod => (dispatch, getState) => {
+  return dispatch(deleteModule(mod));
+};
+
+export const ADD_QUESTION_REQUEST = "ADD_QUESTION_REQUEST";
+export const ADD_QUESTION_SUCCESS = "ADD_QUESTION_SUCCESS";
+export const ADD_QUESTION_FAILURE = "ADD_QUESTION_FAILURE";
+
+export const addQuestion = question => ({
+  [CALL_API]: {
+    types: [ADD_QUESTION_REQUEST, ADD_QUESTION_SUCCESS, ADD_QUESTION_FAILURE],
+    endpoint: "questions",
+    method: "post",
+    data: question
+  }
+});
+
+export const addQuestionAction = question => (dispatch, getState) => {
+  return dispatch(addQuestion(question));
+};
+
+export const UPDATE_QUESTION_REQUEST = "UPDATE_QUESTION_REQUEST";
+export const UPDATE_QUESTION_SUCCESS = "UPDATE_QUESTION_SUCCESS";
+export const UPDATE_QUESTION_FAILURE = "UPDATE_QUESTION_FAILURE";
+
+export const updateQuestion = question => ({
+  [CALL_API]: {
+    types: [
+      UPDATE_QUESTION_REQUEST,
+      UPDATE_QUESTION_SUCCESS,
+      UPDATE_QUESTION_FAILURE
+    ],
+    endpoint: "questions",
+    method: "post",
+    data: question
+  }
+});
+
+export const updateQuestionAction = question => (dispatch, getState) => {
+  return dispatch(updateQuestion(question));
+};
+
+export const DELETE_QUESTION_REQUEST = "DELETE_QUESTION_REQUEST";
+export const DELETE_QUESTION_SUCCESS = "DELETE_QUESTION_SUCCESS";
+export const DELETE_QUESTION_FAILURE = "DELETE_QUESTION_FAILURE";
+
+export const deleteQuestion = question => ({
+  [CALL_API]: {
+    types: [
+      DELETE_QUESTION_REQUEST,
+      DELETE_QUESTION_SUCCESS,
+      DELETE_QUESTION_FAILURE
+    ],
+    endpoint: "questions",
+    method: "delete",
+    data: question
+  }
+});
+
+export const deleteQuestionAction = question => (dispatch, getState) => {
+  return dispatch(deleteQuestion(question));
+};

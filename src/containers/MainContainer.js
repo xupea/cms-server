@@ -11,7 +11,13 @@ import {
   getWorldsAction,
   addTopicAction,
   updateTopicAction,
-  deleteTopicAction
+  deleteTopicAction,
+  addModuleAction,
+  updateModuleAction,
+  deleteModuleAction,
+  addQuestionAction,
+  updateQuestionAction,
+  deleteQuestionAction
 } from "../redux/actions";
 
 // import "./App.css";
@@ -75,9 +81,12 @@ class Main extends Component {
           addTopicAction={this.props.addTopicAction}
           updateTopicAction={this.props.updateTopicAction}
           deleteTopicAction={this.props.deleteTopicAction}
-          delete={world => this.setDeleteVisible(true)}
-          configTopic={() => this.setTopicVisible(true)}
-          configModule={() => this.setModuleVisible(true)}
+          addModuleAction={this.props.addModuleAction}
+          updateModuleAction={this.props.updateModuleAction}
+          deleteModuleAction={this.props.deleteModuleAction}
+          addQuestionAction={this.props.addQuestionAction}
+          updateQuestionAction={this.props.updateQuestionAction}
+          deleteQuestionAction={this.props.deleteQuestionAction}
         />
       </div>
     );
@@ -98,7 +107,13 @@ export default withRouter(
       deleteWorldAction,
       addTopicAction,
       updateTopicAction,
-      deleteTopicAction
+      deleteTopicAction,
+      addModuleAction,
+      updateModuleAction,
+      deleteModuleAction,
+      addQuestionAction,
+      updateQuestionAction,
+      deleteQuestionAction
     }
   )(Main)
 );

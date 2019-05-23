@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
 import findLast from "lodash/findLast";
 import remove from "lodash/remove";
+import isEmpty from "lodash/isEmpty";
+
 import {
   DELETE_WORLD_SUCCESS,
   ADD_WORLD_SUCCESS,
@@ -9,15 +11,13 @@ import {
   ADD_TOPIC_SUCCESS,
   UPDATE_TOPIC_SUCCESS,
   DELETE_TOPIC_SUCCESS,
-  RESET_ERROR_MESSAGE
+  ADD_MODULE_SUCCESS,
+  UPDATE_MODULE_SUCCESS,
+  DELETE_MODULE_SUCCESS,
+  ADD_QUESTION_SUCCESS,
+  UPDATE_QUESTION_SUCCESS,
+  DELETE_QUESTION_SUCCESS
 } from "../actions";
-
-const isEmpty = obj => {
-  for (var key in obj) {
-    if (obj.hasOwnProperty(key)) return false;
-  }
-  return true;
-};
 
 const worlds = (state = [], action) => {
   if (action.response && action.type === ADD_WORLD_SUCCESS) {
@@ -71,41 +71,107 @@ const worlds = (state = [], action) => {
     return isEmpty(action.response) ? [] : [...action.response];
   }
 
-  return state;
-};
+  if (action.response && action.type === ADD_MODULE_SUCCESS) {
+    console.log(action.response);
+    const world = findLast(state, value => value.id === action.response.wid);
+    const topic = findLast(
+      world.topics,
+      value => value.id === action.response.tid
+    );
+    topic.modules.push(action.response);
+    return [...state];
+  }
 
-// Updates error message to notify about the failed fetches.
-const errorMessage = (state = null, action) => {
-  const { type, error } = action;
+  if (action.response && action.type === UPDATE_MODULE_SUCCESS) {
+    console.log(action.response);
+    const world = findLast(state, value => value.id === action.response.wid);
+    const topic = findLast(
+      world.topics,
+      value => value.id === action.response.tid
+    );
+    const mod = findLast(
+      topic.modules,
+      value => value.id === action.response.id
+    );
+    Object.assign(mod, action.response);
+    return [...state];
+  }
 
-  if (type === RESET_ERROR_MESSAGE) {
-    return null;
-  } else if (error) {
-    return error;
+  if (action.response && action.type === DELETE_MODULE_SUCCESS) {
+    const world = findLast(state, value => value.id === action.response.wid);
+    const topic = findLast(
+      world.topics,
+      value => value.id === action.response.tid
+    );
+    remove(topic.modules, value => value.id === action.response.id);
+    // world.playlistCount = world.topics.length;
+    return [...state];
+  }
+
+  if (action.response && action.type === ADD_QUESTION_SUCCESS) {
+    console.log(action.response);
+    const world = findLast(state, value => value.id === action.response.wid);
+    const topic = findLast(
+      world.topics,
+      value => value.id === action.response.tid
+    );
+    const mod = findLast(
+      topic.modules,
+      value => value.id === action.response.mid
+    );
+    mod.questions.push(action.response);
+    return [...state];
+  }
+
+  if (action.response && action.type === UPDATE_QUESTION_SUCCESS) {
+    console.log(action.response);
+    const world = findLast(state, value => value.id === action.response.wid);
+    const topic = findLast(
+      world.topics,
+      value => value.id === action.response.tid
+    );
+    const mod = findLast(
+      topic.modules,
+      value => value.id === action.response.mid
+    );
+    const question = findLast(
+      mod.questions,
+      value => value.id === action.response.id
+    );
+    Object.assign(question, action.response);
+    return [...state];
+  }
+
+  if (action.response && action.type === DELETE_QUESTION_SUCCESS) {
+    const world = findLast(state, value => value.id === action.response.wid);
+    const topic = findLast(
+      world.topics,
+      value => value.id === action.response.tid
+    );
+    const mod = findLast(
+      topic.modules,
+      value => value.id === action.response.mid
+    );
+    remove(mod.questions, value => value.id === action.response.id);
+    // world.playlistCount = world.topics.length;
+    return [...state];
   }
 
   return state;
 };
 
-// Updates the pagination data for different actions.
-// const pagination = combineReducers({
-//   starredByUser: paginate({
-//     mapActionToKey: action => action.login,
-//     types: [
-//       ActionTypes.STARRED_REQUEST,
-//       ActionTypes.STARRED_SUCCESS,
-//       ActionTypes.STARRED_FAILURE
-//     ]
-//   }),
-//   stargazersByRepo: paginate({
-//     mapActionToKey: action => action.fullName,
-//     types: [
-//       ActionTypes.STARGAZERS_REQUEST,
-//       ActionTypes.STARGAZERS_SUCCESS,
-//       ActionTypes.STARGAZERS_FAILURE
-//     ]
-//   })
-// });
+// Updates error message to notify about the failed fetches.
+const errorMessage = (state = null, action) => {
+  // const { type, error } = action;
+
+  // if (type === RESET_ERROR_MESSAGE) {
+  //   return null;
+  // } else if (error) {
+  //   return error;
+  // }
+
+  return state;
+};
 
 const rootReducer = combineReducers({
   worlds,
