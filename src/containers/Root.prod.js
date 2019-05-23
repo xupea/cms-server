@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Provider } from "react-redux";
 import { Route } from "react-router-dom";
 
-import MainContainer from "./containers/MainContainer";
+import MainContainer from "./MainContainer";
 
 const Root = ({ store }) => (
   <Provider store={store}>

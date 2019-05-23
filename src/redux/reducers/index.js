@@ -19,7 +19,9 @@ import {
   DELETE_QUESTION_SUCCESS
 } from "../actions";
 
-const worlds = (state = [], action) => {
+const initialState = [];
+
+export const worlds = (state = initialState, action) => {
   if (action.response && action.type === ADD_WORLD_SUCCESS) {
     console.log(action.response);
     return [...state, action.response];
@@ -175,7 +177,6 @@ const errorMessage = (state = null, action) => {
 
 const rootReducer = combineReducers({
   worlds,
-  // pagination,
   errorMessage
 });
 
