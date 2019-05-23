@@ -227,4 +227,202 @@ describe("actions", () => {
 
     expect(dispatch.mock.calls[0][0]).toEqual(expectedAction);
   });
+
+  it("should create an action to add a module", () => {
+    const mod = {};
+
+    const expectedAction = {
+      [CALL_API]: {
+        types: [actions.ADD_MODULE_REQUEST, actions.ADD_MODULE_SUCCESS, actions.ADD_MODULE_FAILURE],
+        endpoint: "modules",
+        method: "post",
+        data: mod
+      }
+    };
+
+    expect(actions.addModule(mod)).toEqual(expectedAction);
+  });
+
+  it("should add a module", () => {
+    const dispatch = jest.fn();
+    const mod = {};
+
+    const expectedAction = {
+      [CALL_API]: {
+        types: [actions.ADD_MODULE_REQUEST, actions.ADD_MODULE_SUCCESS, actions.ADD_MODULE_FAILURE],
+        endpoint: "modules",
+        method: "post",
+        data: mod
+      }
+    };
+
+    actions.addModuleAction(mod)(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedAction);
+  });
+
+  it("should create an action to update a module", () => {
+    const mod = {};
+
+    const expectedAction = {
+      [CALL_API]: {
+        types: [actions.UPDATE_MODULE_REQUEST, actions.UPDATE_MODULE_SUCCESS, actions.UPDATE_MODULE_FAILURE],
+        endpoint: "modules",
+        method: "post",
+        data: mod
+      }
+    };
+
+    expect(actions.updateModule(mod)).toEqual(expectedAction);
+  });
+
+  it("should update a module", () => {
+    const dispatch = jest.fn();
+    const mod = {};
+
+    const expectedAction = {
+      [CALL_API]: {
+        types: [actions.UPDATE_MODULE_REQUEST, actions.UPDATE_MODULE_SUCCESS, actions.UPDATE_MODULE_FAILURE],
+        endpoint: "modules",
+        method: "post",
+        data: mod
+      }
+    };
+
+    actions.updateModuleAction(mod)(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedAction);
+  });
+
+  it("should create an action to delete a module", () => {
+    const mod = {};
+
+    const expectedAction = {
+      [CALL_API]: {
+        types: [actions.DELETE_MODULE_REQUEST, actions.DELETE_MODULE_SUCCESS, actions.DELETE_MODULE_FAILURE],
+        endpoint: "modules",
+        method: "delete",
+        data: mod
+      }
+    };
+
+    expect(actions.deleteModule(mod)).toEqual(expectedAction);
+  });
+
+  it("should delete a module", () => {
+    const dispatch = jest.fn();
+    const mod = {};
+
+    const expectedAction = {
+      [CALL_API]: {
+        types: [actions.DELETE_MODULE_REQUEST, actions.DELETE_MODULE_SUCCESS, actions.DELETE_MODULE_FAILURE],
+        endpoint: "modules",
+        method: "delete",
+        data: mod
+      }
+    };
+
+    actions.deleteModuleAction(mod)(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedAction);
+  });
+
+  it("should create an action to add a question", () => {
+    const question = {};
+
+    const expectedAction = {
+      [CALL_API]: {
+        types: [actions.ADD_QUESTION_REQUEST, actions.ADD_QUESTION_SUCCESS, actions.ADD_QUESTION_FAILURE],
+        endpoint: "questions",
+        method: "post",
+        data: question
+      }
+    };
+
+    expect(actions.addQuestion(question)).toEqual(expectedAction);
+  });
+
+  it("should add a question", () => {
+    const dispatch = jest.fn();
+    const question = {};
+
+    const expectedAction = {
+      [CALL_API]: {
+        types: [actions.ADD_QUESTION_REQUEST, actions.ADD_QUESTION_SUCCESS, actions.ADD_QUESTION_FAILURE],
+        endpoint: "questions",
+        method: "post",
+        data: question
+      }
+    };
+
+    actions.addQuestionAction(question)(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedAction);
+  });
+
+  it("should create an action to update a question", () => {
+    const question = {};
+
+    const expectedAction = {
+      [CALL_API]: {
+        types: [actions.UPDATE_QUESTION_REQUEST, actions.UPDATE_QUESTION_SUCCESS, actions.UPDATE_QUESTION_FAILURE],
+        endpoint: "questions",
+        method: "post",
+        data: question
+      }
+    };
+
+    expect(actions.updateQuestion(question)).toEqual(expectedAction);
+  });
+
+  it("should update a question", () => {
+    const dispatch = jest.fn();
+    const question = {};
+
+    const expectedAction = {
+      [CALL_API]: {
+        types: [actions.UPDATE_QUESTION_REQUEST, actions.UPDATE_QUESTION_SUCCESS, actions.UPDATE_QUESTION_FAILURE],
+        endpoint: "questions",
+        method: "post",
+        data: question
+      }
+    };
+
+    actions.updateQuestionAction(question)(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedAction);
+  });
+
+  it("should create an action to delete a question", () => {
+    const question = {};
+
+    const expectedAction = {
+      [CALL_API]: {
+        types: [actions.DELETE_QUESTION_REQUEST, actions.DELETE_QUESTION_SUCCESS, actions.DELETE_QUESTION_FAILURE],
+        endpoint: "questions",
+        method: "delete",
+        data: question
+      }
+    };
+
+    expect(actions.deleteQuestion(question)).toEqual(expectedAction);
+  });
+
+  it("should delete a question", () => {
+    const dispatch = jest.fn();
+    const question = {};
+
+    const expectedAction = {
+      [CALL_API]: {
+        types: [actions.DELETE_QUESTION_REQUEST, actions.DELETE_QUESTION_SUCCESS, actions.DELETE_QUESTION_FAILURE],
+        endpoint: "questions",
+        method: "delete",
+        data: question
+      }
+    };
+
+    actions.deleteQuestionAction(question)(dispatch);
+
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedAction);
+  });
 });
