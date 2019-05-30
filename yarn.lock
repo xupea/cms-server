@@ -8960,6 +8960,14 @@ react-slick@~0.24.0:
     lodash.debounce "^4.0.8"
     resize-observer-polyfill "^1.5.0"
 
+react-sound@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npm.taobao.org/react-sound/download/react-sound-1.2.0.tgz#1bb7e1ec8494ecc57b03dbdecd1496b10f6541f2"
+  integrity sha1-G7fh7ISU7MV7A9vezRSWsQ9lQfI=
+  dependencies:
+    prop-types "^15.5.7"
+    soundmanager2 "^2.97.20170602"
+
 react-test-renderer@^16.8.6:
   version "16.8.6"
   resolved "https://registry.npm.taobao.org/react-test-renderer/download/react-test-renderer-16.8.6.tgz#188d8029b8c39c786f998aa3efd3ffe7642d5ba1"
@@ -9777,6 +9785,11 @@ sockjs@0.3.19:
   dependencies:
     faye-websocket "^0.10.0"
     uuid "^3.0.1"
+
+soundmanager2@^2.97.20170602:
+  version "2.97.20170602"
+  resolved "https://registry.npm.taobao.org/soundmanager2/download/soundmanager2-2.97.20170602.tgz#fe3bc731bfc4d54c1364e71980263e6816981879"
+  integrity sha1-/jvHMb/E1UwTZOcZgCY+aBaYGHk=
 
 source-list-map@^2.0.0:
   version "2.0.1"

@@ -1,6 +1,8 @@
 import React from "react";
-import { Form, Input, Icon, Upload, Button, InputNumber } from "antd";
+import { Form, Input, Icon, Upload, Button, InputNumber, Row, Col } from "antd";
 import AWS from "aws-sdk";
+import Sound from "react-sound";
+import { revertWolrd } from "../../utils";
 
 const props = {
   // multiple: false,
@@ -82,8 +84,26 @@ export default class WorldForm extends React.Component {
     return e && e.fileList;
   };
 
+  state = {
+    url: "",
+    status: Sound.status.STOPPED
+  };
+
+  onPreview = file => {
+    if (file.type === "audio/mp3" && file.status === "done") {
+      this.setState({
+        url: file.response,
+        status: Sound.status.PLAYING
+      });
+    }
+  };
+
   render() {
     const { getFieldDecorator, world } = this.props;
+
+    const newWorld = world ? revertWolrd(world) : null;
+
+    console.log(newWorld);
 
     const formItemLayout = {
       labelCol: {
@@ -100,7 +120,7 @@ export default class WorldForm extends React.Component {
       <Form {...formItemLayout}>
         <Form.Item label="World Name">
           {getFieldDecorator("name", {
-            initialValue: world ? world.name : "",
+            initialValue: newWorld ? newWorld.name : "",
             rules: [
               {
                 required: true,
@@ -113,7 +133,7 @@ export default class WorldForm extends React.Component {
           {getFieldDecorator("backgroundImage", {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile,
-            initialValue: world ? world.backgroundImage : null,
+            initialValue: newWorld ? newWorld.backgroundImage : null,
             rules: [
               {
                 required: true,
@@ -122,6 +142,7 @@ export default class WorldForm extends React.Component {
             ]
           })(
             <Upload
+              onPreview={this.onPreview}
               name="sampleFile"
               action="http://localhost:8000/upload"
               listType="picture"
@@ -133,31 +154,67 @@ export default class WorldForm extends React.Component {
           )}
         </Form.Item>
         <Form.Item label="Background Story">
-          {getFieldDecorator("backgroundStory", {
-            valuePropName: "fileList",
-            getValueFromEvent: this.normFile,
-            initialValue: world ? world.backgroundStory : null,
-            rules: [
-              {
-                required: true,
-                message: "Please upload images and audios!"
-              }
-            ]
-          })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
-              <Button>
-                <Icon type="upload" /> Click to upload
-              </Button>
-            </Upload>
-          )}
+          <Row gutter={24}>
+            <Col span={12}>
+              <Form.Item label="Images">
+                {getFieldDecorator("backgroundStoryImages", {
+                  valuePropName: "fileList",
+                  getValueFromEvent: this.normFile,
+                  initialValue: newWorld
+                    ? newWorld.backgroundStoryImages
+                    : null,
+                  rules: [
+                    {
+                      required: true,
+                      message: "Please upload images!"
+                    }
+                  ]
+                })(
+                  <Upload
+                    name="sampleFile"
+                    action="http://localhost:8000/upload"
+                    listType="picture"
+                  >
+                    <Button>
+                      <Icon type="upload" /> Click to upload
+                    </Button>
+                  </Upload>
+                )}
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item label="Audios">
+                {getFieldDecorator("backgroundStoryAudios", {
+                  valuePropName: "fileList",
+                  getValueFromEvent: this.normFile,
+                  initialValue: newWorld
+                    ? newWorld.backgroundStoryAudios
+                    : null,
+                  rules: [
+                    {
+                      required: true,
+                      message: "Please upload audios!"
+                    }
+                  ]
+                })(
+                  <Upload
+                    onPreview={this.onPreview}
+                    name="sampleFile"
+                    action="http://localhost:8000/upload"
+                    listType="picture"
+                  >
+                    <Button>
+                      <Icon type="upload" /> Click to upload
+                    </Button>
+                  </Upload>
+                )}
+              </Form.Item>
+            </Col>
+          </Row>
         </Form.Item>
         <Form.Item label="Unlock rules">
-          {getFieldDecorator("unlockRules", {
-            initialValue: world ? parseInt(world.unlockRules) : 0,
+          {getFieldDecorator("unlockRestriction", {
+            initialValue: newWorld ? parseInt(newWorld.unlockRestriction) : 0,
             rules: [
               {
                 type: "number"
@@ -169,13 +226,75 @@ export default class WorldForm extends React.Component {
             ]
           })(<InputNumber min={0} max={10} />)}
         </Form.Item>
+        <Form.Item label="Unlock Story">
+          <Row gutter={24}>
+            <Col span={12}>
+              <Form.Item label="Images">
+                {getFieldDecorator("unlockStoryImages", {
+                  valuePropName: "fileList",
+                  getValueFromEvent: this.normFile,
+                  initialValue: newWorld ? newWorld.unlockStoryImages : null,
+                  rules: [
+                    {
+                      required: true,
+                      message: "Please upload images!"
+                    }
+                  ]
+                })(
+                  <Upload
+                    name="sampleFile"
+                    action="http://localhost:8000/upload"
+                    listType="picture"
+                  >
+                    <Button>
+                      <Icon type="upload" /> Click to upload
+                    </Button>
+                  </Upload>
+                )}
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item label="Audios">
+                {getFieldDecorator("unlockStoryAudios", {
+                  valuePropName: "fileList",
+                  getValueFromEvent: this.normFile,
+                  initialValue: newWorld ? newWorld.unlockStoryAudios : null,
+                  rules: [
+                    {
+                      required: true,
+                      message: "Please upload audios!"
+                    }
+                  ]
+                })(
+                  <Upload
+                    onPreview={this.onPreview}
+                    name="sampleFile"
+                    action="http://localhost:8000/upload"
+                    listType="picture"
+                  >
+                    <Button>
+                      <Icon type="upload" /> Click to upload
+                    </Button>
+                  </Upload>
+                )}
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form.Item>
         <Form.Item label="Levelup Audio">
-          {getFieldDecorator("levelupAudio", {
+          {getFieldDecorator("levelupAudios", {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile,
-            initialValue: world ? world.levelupAudio : null
+            initialValue: newWorld ? newWorld.levelupAudios : null,
+            rules: [
+              {
+                required: true,
+                message: "Please upload images and audios!"
+              }
+            ]
           })(
             <Upload
+              onPreview={this.onPreview}
               name="sampleFile"
               action="http://localhost:8000/upload"
               listType="picture"
@@ -187,22 +306,61 @@ export default class WorldForm extends React.Component {
           )}
         </Form.Item>
         <Form.Item label="World Transitions">
-          {getFieldDecorator("transitions", {
-            valuePropName: "fileList",
-            getValueFromEvent: this.normFile,
-            initialValue: world ? world.userStory : null
-          })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
-              <Button>
-                <Icon type="upload" /> Click to upload
-              </Button>
-            </Upload>
-          )}
+          <Row gutter={24}>
+            <Col span={12}>
+              <Form.Item label="Images">
+                {getFieldDecorator("transitionImages", {
+                  valuePropName: "fileList",
+                  getValueFromEvent: this.normFile,
+                  initialValue: newWorld ? newWorld.transitionImages : null,
+                  rules: [
+                    {
+                      required: true,
+                      message: "Please upload images!"
+                    }
+                  ]
+                })(
+                  <Upload
+                    name="sampleFile"
+                    action="http://localhost:8000/upload"
+                    listType="picture"
+                  >
+                    <Button>
+                      <Icon type="upload" /> Click to upload
+                    </Button>
+                  </Upload>
+                )}
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item label="Audios">
+                {getFieldDecorator("transitionAudios", {
+                  valuePropName: "fileList",
+                  getValueFromEvent: this.normFile,
+                  initialValue: newWorld ? newWorld.transitionAudios : null,
+                  rules: [
+                    {
+                      required: true,
+                      message: "Please upload audios!"
+                    }
+                  ]
+                })(
+                  <Upload
+                    onPreview={this.onPreview}
+                    name="sampleFile"
+                    action="http://localhost:8000/upload"
+                    listType="picture"
+                  >
+                    <Button>
+                      <Icon type="upload" /> Click to upload
+                    </Button>
+                  </Upload>
+                )}
+              </Form.Item>
+            </Col>
+          </Row>
         </Form.Item>
+        <Sound url={this.state.url} playStatus={this.state.status} />
       </Form>
     );
   }

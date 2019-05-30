@@ -1,4 +1,5 @@
 import { CALL_API } from "../middleware/api";
+import { formatWolrd } from "../../utils";
 
 export const GET_WORLDS_REQUEST = "GET_WORLDS_REQUEST";
 export const GET_WORLDS_SUCCESS = "GET_WORLDS_SUCCESS";
@@ -30,9 +31,9 @@ export const addWorld = world => ({
   }
 });
 
-export const addWorldAction = (world, oldWorld) => (dispatch, getState) => {
-  world.id = oldWorld && oldWorld.id;
-  return dispatch(addWorld(world));
+export const addWorldAction = world => (dispatch, getState) => {
+  const newWorld = formatWolrd(world);
+  return dispatch(addWorld(newWorld));
 };
 
 export const UPDATE_WORLD_REQUEST = "UPDATE_WORLD_REQUEST";

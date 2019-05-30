@@ -12,6 +12,7 @@ export const WorldFormModal = Form.create({ name: "world_form_modal" })(
 
       return (
         <Modal
+          width={620}
           visible={visible}
           destroyOnClose
           centered

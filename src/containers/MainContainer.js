@@ -34,42 +34,6 @@ class Main extends Component {
     this.props.getWorldsAction();
   }
 
-  setDeleteVisible(deleteVisible) {
-    this.setState({ deleteVisible });
-  }
-
-  handleCancel = () => {
-    this.setState({ editWorldVisible: false });
-  };
-
-  handleCreate = () => {
-    const form = this.formRef.props.form;
-    form.validateFields((err, values) => {
-      if (err) {
-        return;
-      }
-
-      console.log("Received values of form: ", values);
-      form.resetFields();
-      this.props.configWorld(values);
-      this.setState({ editWorldVisible: false });
-    });
-  };
-
-  handleDeleteWorld = () => {};
-
-  saveFormRef = formRef => {
-    this.formRef = formRef;
-  };
-
-  setTopicVisible(editTopicVisible) {
-    this.setState({ editTopicVisible });
-  }
-
-  setModuleVisible(editModuleVisible) {
-    this.setState({ editModuleVisible });
-  }
-
   render() {
     return (
       <div className="App">
