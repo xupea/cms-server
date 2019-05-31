@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Icon, Upload, Button } from "antd";
+import { Form, Input, Icon, Upload, Button, Row, Col } from "antd";
 
 class RegistrationForm extends React.Component {
   state = {
@@ -46,7 +46,13 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator("image", {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile,
-            initialValue: topic ? topic.image : null
+            initialValue: topic ? topic.image : null,
+            rules: [
+              {
+                required: true,
+                message: "Please upload topic image"
+              }
+            ]
           })(
             <Upload
               name="sampleFile"
@@ -63,7 +69,13 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator("introAudio", {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile,
-            initialValue: topic ? topic.introAudio : null
+            initialValue: topic ? topic.introAudio : null,
+            rules: [
+              {
+                required: true,
+                message: "Please upload audio"
+              }
+            ]
           })(
             <Upload
               name="sampleFile"
@@ -81,7 +93,13 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator("celebrationAudio", {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile,
-            initialValue: topic ? topic.celebrationAudio : null
+            initialValue: topic ? topic.celebrationAudio : null,
+            rules: [
+              {
+                required: true,
+                message: "Please upload audio!"
+              }
+            ]
           })(
             <Upload
               name="sampleFile"
@@ -94,22 +112,60 @@ class RegistrationForm extends React.Component {
             </Upload>
           )}
         </Form.Item>
-        <Form.Item label="Badge">
-          {getFieldDecorator("badges", {
-            valuePropName: "fileList",
-            getValueFromEvent: this.normFile,
-            initialValue: topic ? topic.badges : null
-          })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
-              <Button>
-                <Icon type="upload" /> Click to upload
-              </Button>
-            </Upload>
-          )}
+        <Form.Item label="Badges">
+          <Row gutter={24}>
+            <Col span={12}>
+              <Form.Item label="Images">
+                {getFieldDecorator("transitionImages", {
+                  valuePropName: "fileList",
+                  getValueFromEvent: this.normFile,
+                  initialValue: topic ? topic.transitionImages : null,
+                  rules: [
+                    {
+                      required: true,
+                      message: "Please upload images!"
+                    }
+                  ]
+                })(
+                  <Upload
+                    name="sampleFile"
+                    action="http://localhost:8000/upload"
+                    listType="picture"
+                  >
+                    <Button>
+                      <Icon type="upload" /> Click to upload
+                    </Button>
+                  </Upload>
+                )}
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item label="Audios">
+                {getFieldDecorator("transitionAudios", {
+                  valuePropName: "fileList",
+                  getValueFromEvent: this.normFile,
+                  initialValue: topic ? topic.transitionAudios : null,
+                  rules: [
+                    {
+                      required: true,
+                      message: "Please upload audios!"
+                    }
+                  ]
+                })(
+                  <Upload
+                    onPreview={this.onPreview}
+                    name="sampleFile"
+                    action="http://localhost:8000/upload"
+                    listType="picture"
+                  >
+                    <Button>
+                      <Icon type="upload" /> Click to upload
+                    </Button>
+                  </Upload>
+                )}
+              </Form.Item>
+            </Col>
+          </Row>
         </Form.Item>
       </Form>
     );
