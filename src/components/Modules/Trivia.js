@@ -1,6 +1,8 @@
 import React from "react";
 import { Form, Icon, Upload, Button, Select, Row, Input, Radio } from "antd";
 
+const uploadURL = "http://localhost:8000/upload";
+
 const Option = Select.Option;
 
 export default class Trivia extends React.Component {
@@ -55,11 +57,7 @@ export default class Trivia extends React.Component {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -84,11 +82,7 @@ class ChoiceQustion extends React.Component {
             valuePropName: "fileList",
             getValueFromEvent: normFile
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -107,11 +101,7 @@ class ChoiceQustion extends React.Component {
             valuePropName: "fileList",
             getValueFromEvent: normFile
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -149,11 +139,7 @@ class ChoiceQustion extends React.Component {
             valuePropName: "fileList",
             getValueFromEvent: normFile
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -166,11 +152,7 @@ class ChoiceQustion extends React.Component {
             valuePropName: "fileList",
             getValueFromEvent: normFile
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -183,11 +165,7 @@ class ChoiceQustion extends React.Component {
             valuePropName: "fileList",
             getValueFromEvent: normFile
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -211,11 +189,7 @@ class TrueFalseQuestion extends React.Component {
             valuePropName: "fileList",
             getValueFromEvent: normFile
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -244,11 +218,7 @@ class TrueFalseQuestion extends React.Component {
             valuePropName: "fileList",
             getValueFromEvent: normFile
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -261,11 +231,7 @@ class TrueFalseQuestion extends React.Component {
             valuePropName: "fileList",
             getValueFromEvent: normFile
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -278,11 +244,7 @@ class TrueFalseQuestion extends React.Component {
             valuePropName: "fileList",
             getValueFromEvent: normFile
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
