@@ -85,6 +85,44 @@ export const revertWolrd = world => {
   };
 };
 
+export const revertTopic = topic => {
+  const {
+    name,
+    unlockRestriction,
+    backgroundImage,
+    backgroundStories,
+    unlockStories,
+    levelupAudios,
+    transitions
+  } = topic;
+
+  backgroundImage.uid = "sdfdsf-sdfdsf";
+  const formatedBackgroundImage = [backgroundImage];
+  const {
+    images: backgroundStoryImages,
+    audios: backgroundStoryAudios
+  } = unzipData(backgroundStories);
+  const { images: unlockStoryImages, audios: unlockStoryAudios } = unzipData(
+    unlockStories
+  );
+  const { images: transitionImages, audios: transitionAudios } = unzipData(
+    transitions
+  );
+
+  return {
+    name,
+    unlockRestriction,
+    backgroundImage: formatedBackgroundImage,
+    backgroundStoryImages,
+    backgroundStoryAudios,
+    unlockStoryImages,
+    unlockStoryAudios,
+    levelupAudios,
+    transitionImages,
+    transitionAudios
+  };
+};
+
 // [{audio, image}, {audio, image}] => [audios] [images]
 // so that we can display data at front-end
 export const unzipData = dataArray => {

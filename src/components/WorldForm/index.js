@@ -4,6 +4,8 @@ import AWS from "aws-sdk";
 import Sound from "react-sound";
 import { revertWolrd } from "../../utils";
 
+const uploadURL = "http://localhost:8000/upload";
+
 const props = {
   // multiple: false,
   // onStart(file) {
@@ -144,7 +146,7 @@ export default class WorldForm extends React.Component {
             <Upload
               onPreview={this.onPreview}
               name="sampleFile"
-              action="http://localhost:8000/upload"
+              action={uploadURL}
               listType="picture"
             >
               <Button>
@@ -172,7 +174,7 @@ export default class WorldForm extends React.Component {
                 })(
                   <Upload
                     name="sampleFile"
-                    action="http://localhost:8000/upload"
+                    action={uploadURL}
                     listType="picture"
                   >
                     <Button>
@@ -200,7 +202,7 @@ export default class WorldForm extends React.Component {
                   <Upload
                     onPreview={this.onPreview}
                     name="sampleFile"
-                    action="http://localhost:8000/upload"
+                    action={uploadURL}
                     listType="picture"
                   >
                     <Button>
@@ -243,7 +245,7 @@ export default class WorldForm extends React.Component {
                 })(
                   <Upload
                     name="sampleFile"
-                    action="http://localhost:8000/upload"
+                    action={uploadURL}
                     listType="picture"
                   >
                     <Button>
@@ -269,7 +271,7 @@ export default class WorldForm extends React.Component {
                   <Upload
                     onPreview={this.onPreview}
                     name="sampleFile"
-                    action="http://localhost:8000/upload"
+                    action={uploadURL}
                     listType="picture"
                   >
                     <Button>
@@ -296,7 +298,7 @@ export default class WorldForm extends React.Component {
             <Upload
               onPreview={this.onPreview}
               name="sampleFile"
-              action="http://localhost:8000/upload"
+              action={uploadURL}
               listType="picture"
             >
               <Button>
@@ -322,7 +324,7 @@ export default class WorldForm extends React.Component {
                 })(
                   <Upload
                     name="sampleFile"
-                    action="http://localhost:8000/upload"
+                    action={uploadURL}
                     listType="picture"
                   >
                     <Button>
@@ -348,7 +350,7 @@ export default class WorldForm extends React.Component {
                   <Upload
                     onPreview={this.onPreview}
                     name="sampleFile"
-                    action="http://localhost:8000/upload"
+                    action={uploadURL}
                     listType="picture"
                   >
                     <Button>
