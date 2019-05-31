@@ -1,6 +1,8 @@
 import React from "react";
 import { Form, Icon, Upload, Button } from "antd";
 
+const uploadURL = "http://localhost:8000/upload";
+
 export default class Factoid extends React.Component {
   normFile = e => {
     console.log("Upload event:", e);
@@ -21,11 +23,7 @@ export default class Factoid extends React.Component {
             getValueFromEvent: this.normFile,
             initialValue: image
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -38,11 +36,7 @@ export default class Factoid extends React.Component {
             getValueFromEvent: this.normFile,
             initialValue: audio
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>

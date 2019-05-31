@@ -17,7 +17,7 @@ export const formatWolrd = worldForm => {
     backgroundStoryAudios,
     unlockStoryImages,
     unlockStoryAudios,
-    levelupAudios,
+    levelUpAudios,
     transitionImages,
     transitionAudios
   } = worldForm;
@@ -31,8 +31,8 @@ export const formatWolrd = worldForm => {
   const formatedTransitions = zipData(transitionImages, transitionAudios);
 
   const formatedLevelUpAudios =
-    levelupAudios &&
-    levelupAudios.map(audio => {
+    levelUpAudios &&
+    levelUpAudios.map(audio => {
       return formatFile(audio);
     });
 
@@ -54,7 +54,7 @@ export const revertWolrd = world => {
     backgroundImage,
     backgroundStories,
     unlockStories,
-    levelupAudios,
+    levelUpAudios,
     transitions
   } = world;
 
@@ -79,7 +79,7 @@ export const revertWolrd = world => {
     backgroundStoryAudios,
     unlockStoryImages,
     unlockStoryAudios,
-    levelupAudios,
+    levelUpAudios,
     transitionImages,
     transitionAudios
   };

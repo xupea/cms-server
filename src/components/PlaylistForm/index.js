@@ -2,6 +2,8 @@ import React from "react";
 import { Form, Input, Icon, Upload, Button, Row, Col } from "antd";
 import { revertWolrd } from "../../utils";
 
+const uploadURL = "http://localhost:8000/upload";
+
 class RegistrationForm extends React.Component {
   normFile = e => {
     if (Array.isArray(e)) {
@@ -51,11 +53,7 @@ class RegistrationForm extends React.Component {
               }
             ]
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -74,11 +72,7 @@ class RegistrationForm extends React.Component {
               }
             ]
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -97,11 +91,7 @@ class RegistrationForm extends React.Component {
               }
             ]
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -125,7 +115,7 @@ class RegistrationForm extends React.Component {
                 })(
                   <Upload
                     name="sampleFile"
-                    action="http://localhost:8000/upload"
+                    action={uploadURL}
                     listType="picture"
                   >
                     <Button>
@@ -151,7 +141,7 @@ class RegistrationForm extends React.Component {
                   <Upload
                     onPreview={this.onPreview}
                     name="sampleFile"
-                    action="http://localhost:8000/upload"
+                    action={uploadURL}
                     listType="picture"
                   >
                     <Button>
@@ -175,11 +165,7 @@ class RegistrationForm extends React.Component {
               }
             ]
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -203,7 +189,7 @@ class RegistrationForm extends React.Component {
                 })(
                   <Upload
                     name="sampleFile"
-                    action="http://localhost:8000/upload"
+                    action={uploadURL}
                     listType="picture"
                   >
                     <Button>
@@ -229,7 +215,7 @@ class RegistrationForm extends React.Component {
                   <Upload
                     onPreview={this.onPreview}
                     name="sampleFile"
-                    action="http://localhost:8000/upload"
+                    action={uploadURL}
                     listType="picture"
                   >
                     <Button>

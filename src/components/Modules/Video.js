@@ -1,6 +1,8 @@
 import React from "react";
 import { Form, Icon, Upload, Button } from "antd";
 
+const uploadURL = "http://localhost:8000/upload";
+
 export default class Video extends React.Component {
   render() {
     const { getFieldDecorator } = this.props;
@@ -12,11 +14,7 @@ export default class Video extends React.Component {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -28,11 +26,7 @@ export default class Video extends React.Component {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile
           })(
-            <Upload
-              name="sampleFile"
-              action="http://localhost:8000/upload"
-              listType="picture"
-            >
+            <Upload name="sampleFile" action={uploadURL} listType="picture">
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
