@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input, Icon, Upload, Button, Row, Col } from "antd";
-import { revertWolrd } from "../../utils";
+import { revertTopic } from "../../utils";
 
 const uploadURL = "http://localhost:8000/upload";
 
@@ -15,7 +15,7 @@ class RegistrationForm extends React.Component {
   render() {
     const { getFieldDecorator, topic } = this.props;
 
-    const newTopic = topic;
+    const newTopic = topic ? revertTopic(topic) : null;
 
     const formItemLayout = {
       labelCol: {
@@ -32,11 +32,11 @@ class RegistrationForm extends React.Component {
       <Form {...formItemLayout}>
         <Form.Item label="Topic Name">
           {getFieldDecorator("name", {
-            initialValue: topic ? topic.name : "",
+            initialValue: newTopic ? newTopic.name : "",
             rules: [
               {
-                required: true,
-                message: "Please input topic name"
+                required: false,
+                message: "Please input newTopic name"
               }
             ]
           })(<Input />)}
@@ -45,11 +45,11 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator("image", {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile,
-            initialValue: topic ? topic.image : null,
+            initialValue: newTopic ? newTopic.image : null,
             rules: [
               {
-                required: true,
-                message: "Please upload topic image"
+                required: false,
+                message: "Please upload image"
               }
             ]
           })(
@@ -64,10 +64,10 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator("introAudio", {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile,
-            initialValue: topic ? topic.introAudio : null,
+            initialValue: newTopic ? newTopic.introAudio : null,
             rules: [
               {
-                required: true,
+                required: false,
                 message: "Please upload audio"
               }
             ]
@@ -83,10 +83,10 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator("celebrationAudio", {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile,
-            initialValue: topic ? topic.celebrationAudio : null,
+            initialValue: newTopic ? newTopic.celebrationAudio : null,
             rules: [
               {
-                required: true,
+                required: false,
                 message: "Please upload audio!"
               }
             ]
@@ -105,10 +105,10 @@ class RegistrationForm extends React.Component {
                 {getFieldDecorator("giftBeforeAudios", {
                   valuePropName: "fileList",
                   getValueFromEvent: this.normFile,
-                  initialValue: topic ? topic.giftBeforeAudios : null,
+                  initialValue: newTopic ? newTopic.giftBeforeAudios : null,
                   rules: [
                     {
-                      required: true,
+                      required: false,
                       message: "Please upload images!"
                     }
                   ]
@@ -130,10 +130,10 @@ class RegistrationForm extends React.Component {
                 {getFieldDecorator("giftAfterAudios", {
                   valuePropName: "fileList",
                   getValueFromEvent: this.normFile,
-                  initialValue: topic ? topic.giftAfterAudios : null,
+                  initialValue: newTopic ? newTopic.giftAfterAudios : null,
                   rules: [
                     {
-                      required: true,
+                      required: false,
                       message: "Please upload audios!"
                     }
                   ]
@@ -157,10 +157,10 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator("badgeImage", {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile,
-            initialValue: topic ? topic.image : null,
+            initialValue: newTopic ? newTopic.image : null,
             rules: [
               {
-                required: true,
+                required: false,
                 message: "Please upload image"
               }
             ]
@@ -179,10 +179,10 @@ class RegistrationForm extends React.Component {
                 {getFieldDecorator("badgeBeforeAudios", {
                   valuePropName: "fileList",
                   getValueFromEvent: this.normFile,
-                  initialValue: topic ? topic.badgeBeforeAudios : null,
+                  initialValue: newTopic ? newTopic.badgeBeforeAudios : null,
                   rules: [
                     {
-                      required: true,
+                      required: false,
                       message: "Please upload images!"
                     }
                   ]
@@ -204,10 +204,10 @@ class RegistrationForm extends React.Component {
                 {getFieldDecorator("badgeAfterAudios", {
                   valuePropName: "fileList",
                   getValueFromEvent: this.normFile,
-                  initialValue: topic ? topic.badgeAfterAudios : null,
+                  initialValue: newTopic ? newTopic.badgeAfterAudios : null,
                   rules: [
                     {
-                      required: true,
+                      required: false,
                       message: "Please upload audios!"
                     }
                   ]

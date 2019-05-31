@@ -1,10 +1,71 @@
 import zipWith from "lodash/zipWith";
 
 export const formatFile = file => {
+  if (!file) return null;
   return {
     name: file.name,
     url: file.response || file.url,
     status: "done"
+  };
+};
+
+export const formatTopic = worldForm => {
+  const {
+    name,
+    image,
+    introAudio,
+    celebrationAudios,
+    badgeImage,
+    badgeBeforeAudios,
+    badgeAfterAudios,
+    giftBeforeAudios,
+    giftAfterAudios
+  } = worldForm;
+
+  const formatedImage = image && image[0];
+  const formatedIntroAudio = introAudio && introAudio[0];
+  const formatedBadgeImage = badgeImage && badgeImage[0];
+
+  const formatedCelebrationAudios =
+    celebrationAudios &&
+    celebrationAudios.map(audio => {
+      return formatFile(audio);
+    });
+
+  const formatedBadgeBeforeAudios =
+    badgeBeforeAudios &&
+    badgeBeforeAudios.map(audio => {
+      return formatFile(audio);
+    });
+
+  const formatedBadgeAfterAudios =
+    badgeAfterAudios &&
+    badgeAfterAudios.map(audio => {
+      return formatFile(audio);
+    });
+
+  const formatedGiftBeforeAudios =
+    giftBeforeAudios &&
+    giftBeforeAudios.map(audio => {
+      return formatFile(audio);
+    });
+
+  const formatedGiftAfterAudios =
+    giftAfterAudios &&
+    giftAfterAudios.map(audio => {
+      return formatFile(audio);
+    });
+
+  return {
+    name,
+    image: formatFile(formatedImage),
+    introAudio: formatFile(formatedIntroAudio),
+    celebrationAudios: formatedCelebrationAudios,
+    badgeImage: formatFile(formatedBadgeImage),
+    badgeBeforeAudios: formatedBadgeBeforeAudios,
+    badgeAfterAudios: formatedBadgeAfterAudios,
+    giftBeforeAudios: formatedGiftBeforeAudios,
+    giftAfterAudios: formatedGiftAfterAudios
   };
 };
 
@@ -88,38 +149,30 @@ export const revertWolrd = world => {
 export const revertTopic = topic => {
   const {
     name,
-    unlockRestriction,
-    backgroundImage,
-    backgroundStories,
-    unlockStories,
-    levelupAudios,
-    transitions
+    image,
+    introAudio,
+    celebrationAudios,
+    badgeImage,
+    badgeBeforeAudios,
+    badgeAfterAudios,
+    giftBeforeAudios,
+    giftAfterAudios
   } = topic;
 
-  backgroundImage.uid = "sdfdsf-sdfdsf";
-  const formatedBackgroundImage = [backgroundImage];
-  const {
-    images: backgroundStoryImages,
-    audios: backgroundStoryAudios
-  } = unzipData(backgroundStories);
-  const { images: unlockStoryImages, audios: unlockStoryAudios } = unzipData(
-    unlockStories
-  );
-  const { images: transitionImages, audios: transitionAudios } = unzipData(
-    transitions
-  );
+  image.uid = "sdfdsf-sdfdsf";
+  introAudio.uid = "asdfasdf";
+  badgeImage.uid = "123213";
 
   return {
     name,
-    unlockRestriction,
-    backgroundImage: formatedBackgroundImage,
-    backgroundStoryImages,
-    backgroundStoryAudios,
-    unlockStoryImages,
-    unlockStoryAudios,
-    levelupAudios,
-    transitionImages,
-    transitionAudios
+    image: [image],
+    introAudio: [introAudio],
+    celebrationAudios,
+    badgeImage: [badgeImage],
+    badgeBeforeAudios,
+    badgeAfterAudios,
+    giftBeforeAudios,
+    giftAfterAudios
   };
 };
 

@@ -1,5 +1,5 @@
 import { CALL_API } from "../middleware/api";
-import { formatWolrd } from "../../utils";
+import { formatWolrd, formatTopic } from "../../utils";
 
 export const GET_WORLDS_REQUEST = "GET_WORLDS_REQUEST";
 export const GET_WORLDS_SUCCESS = "GET_WORLDS_SUCCESS";
@@ -50,7 +50,8 @@ export const updateWorld = world => ({
 });
 
 export const updateWorldAction = world => (dispatch, getState) => {
-  return dispatch(updateWorld(world));
+  const newWorld = formatWolrd(world);
+  return dispatch(updateWorld(newWorld));
 };
 
 export const DELETE_WORLD_REQUEST = "DELETE_WORLD_REQUEST";
@@ -84,7 +85,8 @@ export const addTopic = topic => ({
 });
 
 export const addTopicAction = topic => (dispatch, getState) => {
-  return dispatch(addTopic(topic));
+  const newTopic = formatTopic(topic);
+  return dispatch(addTopic(newTopic));
 };
 
 export const UPDATE_TOPIC_REQUEST = "UPDATE_TOPIC_REQUEST";
@@ -101,7 +103,8 @@ export const updateTopic = topic => ({
 });
 
 export const updateTopicAction = topic => (dispatch, getState) => {
-  return dispatch(updateTopic(topic));
+  const newTopic = formatTopic(topic);
+  return dispatch(updateTopic(newTopic));
 };
 
 export const DELETE_TOPIC_REQUEST = "DELETE_TOPIC_REQUEST";
