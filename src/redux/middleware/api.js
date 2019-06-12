@@ -1,7 +1,6 @@
 import axios from "axios";
-import Qs from "qs";
 
-const API_ROOT = "http://localhost:8000/";
+const API_ROOT = "http://test.msservice.makeblock.com/";
 
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
@@ -17,12 +16,12 @@ const callApi = (endpoint, method, data) => {
     url: fullUrl,
     method,
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
+      "Content-Type": "application/json",
+      utoken: "xmxjhv6l"
     },
-    transformRequest: [data => Qs.stringify(data)],
     data: data
   }).then(response => {
-    return response.data;
+    return response.data.data;
   });
 };
 

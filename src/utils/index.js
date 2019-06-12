@@ -9,8 +9,74 @@ export const formatFile = file => {
   };
 };
 
+export const formatModule = moduleForm => {
+  const {
+    id,
+    worldId,
+    name,
+    image,
+    introAudio,
+    celebrationAudios,
+    badgeImage,
+    badgeBeforeAudios,
+    badgeAfterAudios,
+    giftBeforeAudios,
+    giftAfterAudios
+  } = moduleForm;
+
+  const formatedImage = image && image[0];
+  const formatedIntroAudio = introAudio && introAudio[0];
+  const formatedBadgeImage = badgeImage && badgeImage[0];
+
+  const formatedCelebrationAudios =
+    celebrationAudios &&
+    celebrationAudios.map(audio => {
+      return formatFile(audio);
+    });
+
+  const formatedBadgeBeforeAudios =
+    badgeBeforeAudios &&
+    badgeBeforeAudios.map(audio => {
+      return formatFile(audio);
+    });
+
+  const formatedBadgeAfterAudios =
+    badgeAfterAudios &&
+    badgeAfterAudios.map(audio => {
+      return formatFile(audio);
+    });
+
+  const formatedGiftBeforeAudios =
+    giftBeforeAudios &&
+    giftBeforeAudios.map(audio => {
+      return formatFile(audio);
+    });
+
+  const formatedGiftAfterAudios =
+    giftAfterAudios &&
+    giftAfterAudios.map(audio => {
+      return formatFile(audio);
+    });
+
+  return {
+    id,
+    worldId,
+    name,
+    image: formatFile(formatedImage),
+    introAudio: formatFile(formatedIntroAudio),
+    celebrationAudios: formatedCelebrationAudios,
+    badgeImage: formatFile(formatedBadgeImage),
+    badgeBeforeAudios: formatedBadgeBeforeAudios,
+    badgeAfterAudios: formatedBadgeAfterAudios,
+    giftBeforeAudios: formatedGiftBeforeAudios,
+    giftAfterAudios: formatedGiftAfterAudios
+  };
+};
+
 export const formatTopic = worldForm => {
   const {
+    id,
+    worldId,
     name,
     image,
     introAudio,
@@ -57,6 +123,8 @@ export const formatTopic = worldForm => {
     });
 
   return {
+    id,
+    worldId,
     name,
     image: formatFile(formatedImage),
     introAudio: formatFile(formatedIntroAudio),
@@ -71,6 +139,7 @@ export const formatTopic = worldForm => {
 
 export const formatWolrd = worldForm => {
   const {
+    id,
     name,
     unlockRestriction,
     backgroundImage,
@@ -98,6 +167,7 @@ export const formatWolrd = worldForm => {
     });
 
   return {
+    id,
     name,
     unlockRestriction,
     backgroundImage: formatFile(formatedBackgroundImage),
@@ -132,6 +202,8 @@ export const revertWolrd = world => {
     transitions
   );
 
+  const formatedLevelUpAudios = unzipSingleData(levelUpAudios);
+
   return {
     name,
     unlockRestriction,
@@ -140,7 +212,7 @@ export const revertWolrd = world => {
     backgroundStoryAudios,
     unlockStoryImages,
     unlockStoryAudios,
-    levelUpAudios,
+    levelUpAudios: formatedLevelUpAudios,
     transitionImages,
     transitionAudios
   };
@@ -148,6 +220,8 @@ export const revertWolrd = world => {
 
 export const revertTopic = topic => {
   const {
+    id,
+    worldId,
     name,
     image,
     introAudio,
@@ -164,17 +238,90 @@ export const revertTopic = topic => {
   badgeImage.uid = "123213";
 
   return {
+    id,
+    worldId,
+    key: worldId,
     name,
     image: [image],
     introAudio: [introAudio],
-    celebrationAudios,
+    celebrationAudios: unzipSingleData(celebrationAudios),
     badgeImage: [badgeImage],
-    badgeBeforeAudios,
-    badgeAfterAudios,
-    giftBeforeAudios,
-    giftAfterAudios
+    badgeBeforeAudios: unzipSingleData(badgeBeforeAudios),
+    badgeAfterAudios: unzipSingleData(badgeAfterAudios),
+    giftBeforeAudios: unzipSingleData(giftBeforeAudios),
+    giftAfterAudios: unzipSingleData(giftAfterAudios)
   };
 };
+
+// export const revertTrueFalseQuestion = question => {
+//   const {
+//     id,
+//     worldId,
+//     name,
+//     image,
+//     introAudio,
+//     celebrationAudios,
+//     badgeImage,
+//     badgeBeforeAudios,
+//     badgeAfterAudios,
+//     giftBeforeAudios,
+//     giftAfterAudios
+//   } = question;
+
+//   image.uid = "sdfdsf-sdfdsf";
+//   introAudio.uid = "asdfasdf";
+//   badgeImage.uid = "123213";
+
+//   return {
+//     id,
+//     worldId,
+//     key: worldId,
+//     name,
+//     image: [image],
+//     introAudio: [introAudio],
+//     celebrationAudios: unzipSingleData(celebrationAudios),
+//     badgeImage: [badgeImage],
+//     badgeBeforeAudios: unzipSingleData(badgeBeforeAudios),
+//     badgeAfterAudios: unzipSingleData(badgeAfterAudios),
+//     giftBeforeAudios: unzipSingleData(giftBeforeAudios),
+//     giftAfterAudios: unzipSingleData(giftAfterAudios)
+//   };
+// };
+
+// export const revertChoiceQuestion = question => {
+//   const {
+//     id,
+//     worldId,
+//     name,
+//     image,
+//     introAudio,
+//     celebrationAudios,
+//     badgeImage,
+//     badgeBeforeAudios,
+//     badgeAfterAudios,
+//     giftBeforeAudios,
+//     giftAfterAudios
+//   } = topic;
+
+//   image.uid = "sdfdsf-sdfdsf";
+//   introAudio.uid = "asdfasdf";
+//   badgeImage.uid = "123213";
+
+//   return {
+//     id,
+//     worldId,
+//     key: worldId,
+//     name,
+//     image: [image],
+//     introAudio: [introAudio],
+//     celebrationAudios: unzipSingleData(celebrationAudios),
+//     badgeImage: [badgeImage],
+//     badgeBeforeAudios: unzipSingleData(badgeBeforeAudios),
+//     badgeAfterAudios: unzipSingleData(badgeAfterAudios),
+//     giftBeforeAudios: unzipSingleData(giftBeforeAudios),
+//     giftAfterAudios: unzipSingleData(giftAfterAudios)
+//   };
+// };
 
 // [{audio, image}, {audio, image}] => [audios] [images]
 // so that we can display data at front-end
@@ -193,6 +340,13 @@ export const unzipData = dataArray => {
     audios,
     images
   };
+};
+
+export const unzipSingleData = dataArray => {
+  return dataArray.map(data => {
+    data.uid = Math.random();
+    return data;
+  });
 };
 
 // [audios] [images] => [{audio, image}, {audio, image}]

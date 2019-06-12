@@ -35,7 +35,7 @@ class RegistrationForm extends React.Component {
             initialValue: newTopic ? newTopic.name : "",
             rules: [
               {
-                required: false,
+                required: true,
                 message: "Please input newTopic name"
               }
             ]
@@ -48,7 +48,7 @@ class RegistrationForm extends React.Component {
             initialValue: newTopic ? newTopic.image : null,
             rules: [
               {
-                required: false,
+                required: true,
                 message: "Please upload image"
               }
             ]
@@ -67,7 +67,7 @@ class RegistrationForm extends React.Component {
             initialValue: newTopic ? newTopic.introAudio : null,
             rules: [
               {
-                required: false,
+                required: true,
                 message: "Please upload audio"
               }
             ]
@@ -80,13 +80,13 @@ class RegistrationForm extends React.Component {
           )}
         </Form.Item>
         <Form.Item label="Celebration Audio">
-          {getFieldDecorator("celebrationAudio", {
+          {getFieldDecorator("celebrationAudios", {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile,
-            initialValue: newTopic ? newTopic.celebrationAudio : null,
+            initialValue: newTopic ? newTopic.celebrationAudios : null,
             rules: [
               {
-                required: false,
+                required: true,
                 message: "Please upload audio!"
               }
             ]
@@ -108,7 +108,7 @@ class RegistrationForm extends React.Component {
                   initialValue: newTopic ? newTopic.giftBeforeAudios : null,
                   rules: [
                     {
-                      required: false,
+                      required: true,
                       message: "Please upload images!"
                     }
                   ]
@@ -133,7 +133,7 @@ class RegistrationForm extends React.Component {
                   initialValue: newTopic ? newTopic.giftAfterAudios : null,
                   rules: [
                     {
-                      required: false,
+                      required: true,
                       message: "Please upload audios!"
                     }
                   ]
@@ -160,7 +160,7 @@ class RegistrationForm extends React.Component {
             initialValue: newTopic ? newTopic.image : null,
             rules: [
               {
-                required: false,
+                required: true,
                 message: "Please upload image"
               }
             ]
@@ -182,7 +182,7 @@ class RegistrationForm extends React.Component {
                   initialValue: newTopic ? newTopic.badgeBeforeAudios : null,
                   rules: [
                     {
-                      required: false,
+                      required: true,
                       message: "Please upload images!"
                     }
                   ]
@@ -207,7 +207,7 @@ class RegistrationForm extends React.Component {
                   initialValue: newTopic ? newTopic.badgeAfterAudios : null,
                   rules: [
                     {
-                      required: false,
+                      required: true,
                       message: "Please upload audios!"
                     }
                   ]

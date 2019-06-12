@@ -1,5 +1,6 @@
 import React from "react";
-import { Form, Icon, Upload, Button, Select, Row, Input, Radio } from "antd";
+import { Form, Icon, Upload, Button, Select, Input, Radio } from "antd";
+import { unzipSingleData } from "../../utils";
 
 const uploadURL = "http://localhost:8000/upload";
 
@@ -10,6 +11,13 @@ export default class Trivia extends React.Component {
     type: this.props.question ? this.props.question.type : "choice"
   };
 
+  normFile = e => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  };
+
   handleChange = value =>
     this.setState({
       type: value
@@ -18,11 +26,19 @@ export default class Trivia extends React.Component {
   render() {
     const { getFieldDecorator, question } = this.props;
 
+    const newQuestion = question
+      ? {
+          type: question.type,
+          introAudio: unzipSingleData(question.introAudio)
+        }
+      : null;
+
     let content;
 
     if (this.state.type === "choice") {
       content = (
         <ChoiceQustion
+          normFile={this.normFile}
           getFieldDecorator={getFieldDecorator}
           question={question}
         />
@@ -32,6 +48,7 @@ export default class Trivia extends React.Component {
     if (this.state.type === "trueorfalse") {
       content = (
         <TrueFalseQuestion
+          normFile={this.normFile}
           getFieldDecorator={getFieldDecorator}
           question={question}
         />
@@ -42,7 +59,7 @@ export default class Trivia extends React.Component {
       <React.Fragment>
         <Form.Item label="Qustion Type">
           {getFieldDecorator("type", {
-            initialValue: question ? question.type : "choice",
+            initialValue: newQuestion ? newQuestion.type : "choice",
             rules: [{ required: true, message: "Please select module type!" }]
           })(
             <Select style={{ width: 220 }} onChange={this.handleChange}>
@@ -53,7 +70,7 @@ export default class Trivia extends React.Component {
         </Form.Item>
         <Form.Item label="Intro Audio">
           {getFieldDecorator("introAudio", {
-            initialValue: question ? question.introAudio : null,
+            initialValue: newQuestion ? newQuestion.introAudio : null,
             valuePropName: "fileList",
             getValueFromEvent: this.normFile
           })(

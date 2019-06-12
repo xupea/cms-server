@@ -23,7 +23,7 @@ export default class WorldList extends Component {
         title: "Topic Count",
         dataIndex: "playlistCount",
         key: "playlistCount",
-        render: (text, record) => record.topics.length
+        render: (text, record) => (record.topics ? record.topics.length : 0)
       },
       {
         title: "Latest Update Time",
@@ -68,7 +68,7 @@ export default class WorldList extends Component {
         title: "Module Count",
         dataIndex: "",
         key: "",
-        render: (text, record) => record.modules.length
+        render: (text, record) => (record.modules ? record.modules.length : 0)
       },
       {
         title: "Operatons",
@@ -341,14 +341,14 @@ export default class WorldList extends Component {
       form.resetFields();
 
       if (this.state.selectedWorld) {
-        values.wid = this.state.selectedWorld.id;
+        values.worldId = this.state.selectedWorld.id;
       }
 
       console.log(this.state.selectedTopic);
 
       if (this.state.selectedTopic) {
         values.id = this.state.selectedTopic.id;
-        values.wid = this.state.selectedTopic.wid;
+        values.worldId = this.state.selectedTopic.worldId;
         this.props.updateTopicAction(values);
       } else this.props.addTopicAction(values);
 
@@ -367,14 +367,14 @@ export default class WorldList extends Component {
       form.resetFields();
 
       if (this.state.selectedTopic) {
-        values.tid = this.state.selectedTopic.id;
-        values.wid = this.state.selectedTopic.wid;
+        values.topicId = this.state.selectedTopic.id;
+        values.worldId = this.state.selectedTopic.worldId;
       }
 
       if (this.state.selectedModule) {
         values.id = this.state.selectedModule.id;
-        values.wid = this.state.selectedModule.wid;
-        values.tid = this.state.selectedModule.tid;
+        values.worldId = this.state.selectedModule.worldId;
+        values.topicId = this.state.selectedModule.topicId;
         this.props.updateModuleAction(values);
       } else this.props.addModuleAction(values);
 
@@ -393,16 +393,16 @@ export default class WorldList extends Component {
       form.resetFields();
 
       if (this.state.selectedModule) {
-        values.mid = this.state.selectedModule.id;
-        values.wid = this.state.selectedModule.wid;
-        values.tid = this.state.selectedModule.tid;
+        values.moduleId = this.state.selectedModule.id;
+        values.worldId = this.state.selectedModule.worldId;
+        values.topicId = this.state.selectedModule.topicId;
       }
 
       if (this.state.selectedQuestion) {
         values.id = this.state.selectedQuestion.id;
-        values.mid = this.state.selectedQuestion.mid;
-        values.wid = this.state.selectedQuestion.wid;
-        values.tid = this.state.selectedQuestion.tid;
+        values.moduleId = this.state.selectedQuestion.moduleId;
+        values.worldId = this.state.selectedQuestion.worldId;
+        values.topicId = this.state.selectedQuestion.topicId;
         this.props.updateQuestionAction(values);
       } else this.props.addQuestionAction(values);
 

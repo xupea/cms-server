@@ -284,10 +284,10 @@ export default class WorldForm extends React.Component {
           </Row>
         </Form.Item>
         <Form.Item label="Levelup Audio">
-          {getFieldDecorator("levelupAudios", {
+          {getFieldDecorator("levelUpAudios", {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile,
-            initialValue: newWorld ? newWorld.levelupAudios : null,
+            initialValue: newWorld ? newWorld.levelUpAudios : null,
             rules: [
               {
                 required: true,

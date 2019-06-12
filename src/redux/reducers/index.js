@@ -42,7 +42,10 @@ export const worlds = (state = initialState, action) => {
 
   if (action.response && action.type === ADD_TOPIC_SUCCESS) {
     console.log(action.response);
-    const world = findLast(state, value => value.id === action.response.wid);
+    const world = findLast(
+      state,
+      value => value.id === action.response.worldId
+    );
     world.topics.push(action.response);
     world.playlistCount = world.topics.length;
     return [...state];
@@ -50,7 +53,10 @@ export const worlds = (state = initialState, action) => {
 
   if (action.response && action.type === UPDATE_TOPIC_SUCCESS) {
     console.log(action.response);
-    const world = findLast(state, value => value.id === action.response.wid);
+    const world = findLast(
+      state,
+      value => value.id === action.response.worldId
+    );
     console.log(world);
     const topic = findLast(
       world.topics,
@@ -62,7 +68,10 @@ export const worlds = (state = initialState, action) => {
 
   if (action.response && action.type === DELETE_TOPIC_SUCCESS) {
     console.log(action.response);
-    const world = findLast(state, value => value.id === action.response.wid);
+    const world = findLast(
+      state,
+      value => value.id === action.response.worldId
+    );
     remove(world.topics, value => value.id === action.response.id);
     world.playlistCount = world.topics.length;
     return [...state];
@@ -70,15 +79,18 @@ export const worlds = (state = initialState, action) => {
 
   if (action.response && action.type === GET_WORLDS_SUCCESS) {
     console.log(action.response);
-    return isEmpty(action.response) ? [] : [...action.response];
+    return isEmpty(action.response.worlds) ? [] : [...action.response.worlds];
   }
 
   if (action.response && action.type === ADD_MODULE_SUCCESS) {
     console.log(action.response);
-    const world = findLast(state, value => value.id === action.response.wid);
+    const world = findLast(
+      state,
+      value => value.id === action.response.worldId
+    );
     const topic = findLast(
       world.topics,
-      value => value.id === action.response.tid
+      value => value.id === action.response.topicId
     );
     topic.modules.push(action.response);
     return [...state];
@@ -86,10 +98,13 @@ export const worlds = (state = initialState, action) => {
 
   if (action.response && action.type === UPDATE_MODULE_SUCCESS) {
     console.log(action.response);
-    const world = findLast(state, value => value.id === action.response.wid);
+    const world = findLast(
+      state,
+      value => value.id === action.response.worldId
+    );
     const topic = findLast(
       world.topics,
-      value => value.id === action.response.tid
+      value => value.id === action.response.topicId
     );
     const mod = findLast(
       topic.modules,
@@ -100,10 +115,13 @@ export const worlds = (state = initialState, action) => {
   }
 
   if (action.response && action.type === DELETE_MODULE_SUCCESS) {
-    const world = findLast(state, value => value.id === action.response.wid);
+    const world = findLast(
+      state,
+      value => value.id === action.response.worldId
+    );
     const topic = findLast(
       world.topics,
-      value => value.id === action.response.tid
+      value => value.id === action.response.topicId
     );
     remove(topic.modules, value => value.id === action.response.id);
     // world.playlistCount = world.topics.length;
@@ -112,14 +130,17 @@ export const worlds = (state = initialState, action) => {
 
   if (action.response && action.type === ADD_QUESTION_SUCCESS) {
     console.log(action.response);
-    const world = findLast(state, value => value.id === action.response.wid);
+    const world = findLast(
+      state,
+      value => value.id === action.response.worldId
+    );
     const topic = findLast(
       world.topics,
-      value => value.id === action.response.tid
+      value => value.id === action.response.topicId
     );
     const mod = findLast(
       topic.modules,
-      value => value.id === action.response.mid
+      value => value.id === action.response.moduleId
     );
     mod.questions.push(action.response);
     return [...state];
@@ -127,14 +148,17 @@ export const worlds = (state = initialState, action) => {
 
   if (action.response && action.type === UPDATE_QUESTION_SUCCESS) {
     console.log(action.response);
-    const world = findLast(state, value => value.id === action.response.wid);
+    const world = findLast(
+      state,
+      value => value.id === action.response.worldId
+    );
     const topic = findLast(
       world.topics,
-      value => value.id === action.response.tid
+      value => value.id === action.response.topicId
     );
     const mod = findLast(
       topic.modules,
-      value => value.id === action.response.mid
+      value => value.id === action.response.moduleId
     );
     const question = findLast(
       mod.questions,
@@ -145,14 +169,17 @@ export const worlds = (state = initialState, action) => {
   }
 
   if (action.response && action.type === DELETE_QUESTION_SUCCESS) {
-    const world = findLast(state, value => value.id === action.response.wid);
+    const world = findLast(
+      state,
+      value => value.id === action.response.worldId
+    );
     const topic = findLast(
       world.topics,
-      value => value.id === action.response.tid
+      value => value.id === action.response.topicId
     );
     const mod = findLast(
       topic.modules,
-      value => value.id === action.response.mid
+      value => value.id === action.response.moduleId
     );
     remove(mod.questions, value => value.id === action.response.id);
     // world.playlistCount = world.topics.length;
