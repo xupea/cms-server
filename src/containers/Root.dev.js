@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import MainContainer from "./MainContainer";
 import LoginContainer from "./LoginContainer";
 import MainRoute from "../routes/MainRoute";
+import ReleaseContainer from "./ReleaseContainer";
 
 const Root = ({ store }) => (
   <Provider store={store}>
@@ -14,6 +15,7 @@ const Root = ({ store }) => (
       <div>
         <Route path="/login" component={LoginContainer} />
         <MainRoute exact path="/" component={MainContainer} />
+        <MainRoute path="/release" component={ReleaseContainer} />
         {/* <DevTools /> */}
       </div>
     </Router>
