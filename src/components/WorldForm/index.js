@@ -105,8 +105,6 @@ export default class WorldForm extends React.Component {
 
     const newWorld = world ? revertWolrd(world) : null;
 
-    console.log(newWorld);
-
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -147,6 +145,7 @@ export default class WorldForm extends React.Component {
               onPreview={this.onPreview}
               name="sampleFile"
               action={uploadURL}
+              accept="image/*"
               listType="picture"
             >
               <Button>
@@ -175,6 +174,7 @@ export default class WorldForm extends React.Component {
                   <Upload
                     name="sampleFile"
                     action={uploadURL}
+                    accept="image/*"
                     listType="picture"
                   >
                     <Button>
@@ -203,6 +203,7 @@ export default class WorldForm extends React.Component {
                     onPreview={this.onPreview}
                     name="sampleFile"
                     action={uploadURL}
+                    accept="audio/mp3"
                     listType="picture"
                   >
                     <Button>
@@ -246,6 +247,7 @@ export default class WorldForm extends React.Component {
                   <Upload
                     name="sampleFile"
                     action={uploadURL}
+                    accept="image/*"
                     listType="picture"
                   >
                     <Button>
@@ -272,6 +274,7 @@ export default class WorldForm extends React.Component {
                     onPreview={this.onPreview}
                     name="sampleFile"
                     action={uploadURL}
+                    accept="audio/mp3"
                     listType="picture"
                   >
                     <Button>
@@ -291,13 +294,14 @@ export default class WorldForm extends React.Component {
             rules: [
               {
                 required: true,
-                message: "Please upload images and audios!"
+                message: "Please upload audios!"
               }
             ]
           })(
             <Upload
               onPreview={this.onPreview}
               name="sampleFile"
+              accept="audio/mp3"
               action={uploadURL}
               listType="picture"
             >
@@ -324,6 +328,7 @@ export default class WorldForm extends React.Component {
                 })(
                   <Upload
                     name="sampleFile"
+                    accept="image/*"
                     action={uploadURL}
                     listType="picture"
                   >
@@ -350,6 +355,7 @@ export default class WorldForm extends React.Component {
                   <Upload
                     onPreview={this.onPreview}
                     name="sampleFile"
+                    accept="audio/mp3"
                     action={uploadURL}
                     listType="picture"
                   >

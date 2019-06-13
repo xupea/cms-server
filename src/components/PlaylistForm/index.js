@@ -53,7 +53,12 @@ class RegistrationForm extends React.Component {
               }
             ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="image/*"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -72,7 +77,12 @@ class RegistrationForm extends React.Component {
               }
             ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -91,7 +101,12 @@ class RegistrationForm extends React.Component {
               }
             ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -117,6 +132,7 @@ class RegistrationForm extends React.Component {
                     name="sampleFile"
                     action={uploadURL}
                     listType="picture"
+                    accept="image/*"
                   >
                     <Button>
                       <Icon type="upload" /> Click to upload
@@ -143,6 +159,7 @@ class RegistrationForm extends React.Component {
                     name="sampleFile"
                     action={uploadURL}
                     listType="picture"
+                    accept="audio/mp3"
                   >
                     <Button>
                       <Icon type="upload" /> Click to upload
@@ -165,7 +182,12 @@ class RegistrationForm extends React.Component {
               }
             ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="image/*"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -191,6 +213,7 @@ class RegistrationForm extends React.Component {
                     name="sampleFile"
                     action={uploadURL}
                     listType="picture"
+                    accept="audio/mp3"
                   >
                     <Button>
                       <Icon type="upload" /> Click to upload
@@ -217,6 +240,7 @@ class RegistrationForm extends React.Component {
                     name="sampleFile"
                     action={uploadURL}
                     listType="picture"
+                    accept="audio/mp3"
                   >
                     <Button>
                       <Icon type="upload" /> Click to upload

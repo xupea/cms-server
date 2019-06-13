@@ -23,12 +23,10 @@ const initialState = [];
 
 export const worlds = (state = initialState, action) => {
   if (action.response && action.type === ADD_WORLD_SUCCESS) {
-    console.log(action.response);
-    return [...state, action.response];
+    return [...state, { ...action.response, ...action.data }];
   }
 
   if (action.response && action.type === UPDATE_WORLD_SUCCESS) {
-    console.log(action.response);
     return [...state].map(value =>
       value.id === action.response.id ? action.response : value
     );
@@ -36,92 +34,75 @@ export const worlds = (state = initialState, action) => {
 
   if (action.response && action.type === DELETE_WORLD_SUCCESS) {
     const data = state.filter(world => world.id !== action.response.id);
-    console.log(data);
     return data;
   }
 
   if (action.response && action.type === ADD_TOPIC_SUCCESS) {
-    console.log(action.response);
-    const world = findLast(
-      state,
-      value => value.id === action.response.worldId
-    );
-    world.topics.push(action.response);
+    const world = findLast(state, value => value.id === action.data.worldId);
+    if (!world.topics) world.topics = [];
+    world.topics.push({
+      ...action.data,
+      ...action.response
+    });
     world.playlistCount = world.topics.length;
     return [...state];
   }
 
   if (action.response && action.type === UPDATE_TOPIC_SUCCESS) {
-    console.log(action.response);
-    const world = findLast(
-      state,
-      value => value.id === action.response.worldId
-    );
-    console.log(world);
+    const world = findLast(state, value => value.id === action.data.worldId);
     const topic = findLast(
       world.topics,
       value => value.id === action.response.id
     );
-    Object.assign(topic, action.response);
+    Object.assign(topic, action.data, action.response);
     return [...state];
   }
 
   if (action.response && action.type === DELETE_TOPIC_SUCCESS) {
-    console.log(action.response);
-    const world = findLast(
-      state,
-      value => value.id === action.response.worldId
-    );
+    const world = findLast(state, value => value.id === action.data.worldId);
     remove(world.topics, value => value.id === action.response.id);
     world.playlistCount = world.topics.length;
     return [...state];
   }
 
   if (action.response && action.type === GET_WORLDS_SUCCESS) {
-    console.log(action.response);
     return isEmpty(action.response.worlds) ? [] : [...action.response.worlds];
   }
 
   if (action.response && action.type === ADD_MODULE_SUCCESS) {
-    console.log(action.response);
-    const world = findLast(
-      state,
-      value => value.id === action.response.worldId
-    );
+    const world = findLast(state, value => value.id === action.data.worldId);
     const topic = findLast(
       world.topics,
-      value => value.id === action.response.topicId
+      value => value.id === action.data.topicId
     );
-    topic.modules.push(action.response);
+    if (!topic.modules) topic.modules = [];
+    topic.modules.push({
+      ...action.data,
+      ...action.response
+    });
     return [...state];
   }
 
   if (action.response && action.type === UPDATE_MODULE_SUCCESS) {
-    console.log(action.response);
-    const world = findLast(
-      state,
-      value => value.id === action.response.worldId
-    );
+    const world = findLast(state, value => value.id === action.data.worldId);
     const topic = findLast(
       world.topics,
-      value => value.id === action.response.topicId
+      value => value.id === action.data.topicId
     );
     const mod = findLast(
       topic.modules,
       value => value.id === action.response.id
     );
-    Object.assign(mod, action.response);
+    Object.assign(mod, action.data, action.response);
     return [...state];
   }
 
   if (action.response && action.type === DELETE_MODULE_SUCCESS) {
-    const world = findLast(
-      state,
-      value => value.id === action.response.worldId
-    );
+    console.log(action);
+    const world = findLast(state, value => value.id === action.data.worldId);
     const topic = findLast(
       world.topics,
-      value => value.id === action.response.topicId
+      value => value.id === action.data.topicId
     );
     remove(topic.modules, value => value.id === action.response.id);
     // world.playlistCount = world.topics.length;
@@ -129,60 +110,53 @@ export const worlds = (state = initialState, action) => {
   }
 
   if (action.response && action.type === ADD_QUESTION_SUCCESS) {
-    console.log(action.response);
-    const world = findLast(
-      state,
-      value => value.id === action.response.worldId
-    );
+    const world = findLast(state, value => value.id === action.data.worldId);
     const topic = findLast(
       world.topics,
-      value => value.id === action.response.topicId
+      value => value.id === action.data.topicId
     );
     const mod = findLast(
       topic.modules,
-      value => value.id === action.response.moduleId
+      value => value.id === action.data.moduleId
     );
-    mod.questions.push(action.response);
+    if (!mod.questions) mod.questions = [];
+    mod.questions.push({
+      ...action.data,
+      ...action.response
+    });
     return [...state];
   }
 
   if (action.response && action.type === UPDATE_QUESTION_SUCCESS) {
     console.log(action.response);
-    const world = findLast(
-      state,
-      value => value.id === action.response.worldId
-    );
+    const world = findLast(state, value => value.id === action.data.worldId);
     const topic = findLast(
       world.topics,
-      value => value.id === action.response.topicId
+      value => value.id === action.data.topicId
     );
     const mod = findLast(
       topic.modules,
-      value => value.id === action.response.moduleId
+      value => value.id === action.data.moduleId
     );
     const question = findLast(
       mod.questions,
       value => value.id === action.response.id
     );
-    Object.assign(question, action.response);
+    Object.assign(question, action.data, action.response);
     return [...state];
   }
 
   if (action.response && action.type === DELETE_QUESTION_SUCCESS) {
-    const world = findLast(
-      state,
-      value => value.id === action.response.worldId
-    );
+    const world = findLast(state, value => value.id === action.data.worldId);
     const topic = findLast(
       world.topics,
-      value => value.id === action.response.topicId
+      value => value.id === action.data.topicId
     );
     const mod = findLast(
       topic.modules,
-      value => value.id === action.response.moduleId
+      value => value.id === action.data.moduleId
     );
     remove(mod.questions, value => value.id === action.response.id);
-    // world.playlistCount = world.topics.length;
     return [...state];
   }
 

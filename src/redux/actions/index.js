@@ -116,7 +116,7 @@ export const deleteTopic = topic => ({
     types: [DELETE_TOPIC_REQUEST, DELETE_TOPIC_SUCCESS, DELETE_TOPIC_FAILURE],
     endpoint: "discoverycms/adm/topic/del",
     method: "delete",
-    data: { id: topic.id, status: 4 }
+    data: { id: topic.id, status: 4, worldId: topic.worldId }
   }
 });
 
@@ -175,7 +175,7 @@ export const deleteModule = mod => ({
     ],
     endpoint: "discoverycms/adm/module/del",
     method: "delete",
-    data: { id: mod.id, status: 4 }
+    data: { id: mod.id, status: 4, worldId: mod.worldId, topicId: mod.topicId }
   }
 });
 
@@ -234,7 +234,13 @@ export const deleteQuestion = question => ({
     ],
     endpoint: "discoverycms/adm/question/del",
     method: "delete",
-    data: { id: question.id, status: 4 }
+    data: {
+      id: question.id,
+      status: 4,
+      worldId: question.worldId,
+      topicId: question.topicId,
+      moduleId: question.moduleId
+    }
   }
 });
 

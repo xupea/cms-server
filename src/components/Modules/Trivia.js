@@ -72,9 +72,20 @@ export default class Trivia extends React.Component {
           {getFieldDecorator("introAudio", {
             initialValue: newQuestion ? newQuestion.introAudio : null,
             valuePropName: "fileList",
-            getValueFromEvent: this.normFile
+            getValueFromEvent: this.normFile,
+            rules: [
+              {
+                required: true,
+                message: "Please upload audios!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -90,16 +101,26 @@ export default class Trivia extends React.Component {
 class ChoiceQustion extends React.Component {
   render() {
     const { getFieldDecorator, normFile, question } = this.props;
-    console.log(question);
     return (
       <React.Fragment>
         <Form.Item label="Qustion Audio">
           {getFieldDecorator("questionAudio", {
             initialValue: question ? question.questionAudio : null,
             valuePropName: "fileList",
-            getValueFromEvent: normFile
+            getValueFromEvent: normFile,
+            rules: [
+              {
+                required: true,
+                message: "Please upload audios!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -116,9 +137,20 @@ class ChoiceQustion extends React.Component {
           {getFieldDecorator("optionAudios", {
             initialValue: question ? question.optionAudios : null,
             valuePropName: "fileList",
-            getValueFromEvent: normFile
+            getValueFromEvent: normFile,
+            rules: [
+              {
+                required: true,
+                message: "Please upload audios!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -141,7 +173,13 @@ class ChoiceQustion extends React.Component {
         </Form.Item>
         <Form.Item label="Answer">
           {getFieldDecorator("answer", {
-            initialValue: question ? question.answer : ""
+            initialValue: question ? question.answer : "",
+            rules: [
+              {
+                required: true,
+                message: "Please choose anwser!"
+              }
+            ]
           })(
             <Radio.Group>
               <Radio value="a">A</Radio>
@@ -154,9 +192,20 @@ class ChoiceQustion extends React.Component {
           {getFieldDecorator("correctAudios", {
             initialValue: question ? question.correctAudios : null,
             valuePropName: "fileList",
-            getValueFromEvent: normFile
+            getValueFromEvent: normFile,
+            rules: [
+              {
+                required: true,
+                message: "Please upload audios!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -167,9 +216,20 @@ class ChoiceQustion extends React.Component {
           {getFieldDecorator("incorrectAudios", {
             initialValue: question ? question.incorrectAudios : null,
             valuePropName: "fileList",
-            getValueFromEvent: normFile
+            getValueFromEvent: normFile,
+            rules: [
+              {
+                required: true,
+                message: "Please upload audios!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -180,9 +240,20 @@ class ChoiceQustion extends React.Component {
           {getFieldDecorator("answerAnalysis", {
             initialValue: question ? question.answerAnalysis : null,
             valuePropName: "fileList",
-            getValueFromEvent: normFile
+            getValueFromEvent: normFile,
+            rules: [
+              {
+                required: true,
+                message: "Please upload audios!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -204,9 +275,20 @@ class TrueFalseQuestion extends React.Component {
           {getFieldDecorator("questionAudio", {
             initialValue: question ? question.questionAudio : null,
             valuePropName: "fileList",
-            getValueFromEvent: normFile
+            getValueFromEvent: normFile,
+            rules: [
+              {
+                required: true,
+                message: "Please upload audios!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -221,7 +303,13 @@ class TrueFalseQuestion extends React.Component {
         </Form.Item>
         <Form.Item label="Answer">
           {getFieldDecorator("answer", {
-            initialValue: question ? question.answer : ""
+            initialValue: question ? question.answer : "",
+            rules: [
+              {
+                required: true,
+                message: "Please choose anwser!"
+              }
+            ]
           })(
             <Radio.Group>
               <Radio value="true">True</Radio>
@@ -233,9 +321,20 @@ class TrueFalseQuestion extends React.Component {
           {getFieldDecorator("correctAudios", {
             initialValue: question ? question.correctAudios : null,
             valuePropName: "fileList",
-            getValueFromEvent: normFile
+            getValueFromEvent: normFile,
+            rules: [
+              {
+                required: true,
+                message: "Please upload audios!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -246,9 +345,20 @@ class TrueFalseQuestion extends React.Component {
           {getFieldDecorator("incorrectAudios", {
             initialValue: question ? question.incorrectAudios : null,
             valuePropName: "fileList",
-            getValueFromEvent: normFile
+            getValueFromEvent: normFile,
+            rules: [
+              {
+                required: true,
+                message: "Please upload audios!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -259,9 +369,20 @@ class TrueFalseQuestion extends React.Component {
           {getFieldDecorator("answerAnalysis", {
             initialValue: question ? question.answerAnalysis : null,
             valuePropName: "fileList",
-            getValueFromEvent: normFile
+            getValueFromEvent: normFile,
+            rules: [
+              {
+                required: true,
+                message: "Please upload audios!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
