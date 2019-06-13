@@ -247,7 +247,6 @@ export default class WorldList extends Component {
   }
 
   setAddModuleModalVisible(addModuleVisible, world, topic, mod) {
-    console.log(mod);
     this.setState({
       addModuleVisible,
       selectedWorld: world,
@@ -343,8 +342,6 @@ export default class WorldList extends Component {
       if (this.state.selectedWorld) {
         values.worldId = this.state.selectedWorld.id;
       }
-
-      console.log(this.state.selectedTopic);
 
       if (this.state.selectedTopic) {
         values.id = this.state.selectedTopic.id;

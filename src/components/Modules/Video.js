@@ -12,9 +12,20 @@ export default class Video extends React.Component {
         <Form.Item label="Intro audio">
           {getFieldDecorator("introAudio", {
             valuePropName: "fileList",
-            getValueFromEvent: this.normFile
+            getValueFromEvent: this.normFile,
+            rules: [
+              {
+                required: true,
+                message: "Please upload audios!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -24,9 +35,20 @@ export default class Video extends React.Component {
         <Form.Item label="Video file">
           {getFieldDecorator("video", {
             valuePropName: "fileList",
-            getValueFromEvent: this.normFile
+            getValueFromEvent: this.normFile,
+            rules: [
+              {
+                required: true,
+                message: "Please upload videos!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="video/*"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>

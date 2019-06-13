@@ -32,22 +32,22 @@ export default class ModuleForm extends React.Component {
         content = <Factoid getFieldDecorator={getFieldDecorator} {...mod} />;
         break;
       case "video":
-        content = <Video getFieldDecorator={getFieldDecorator} />;
+        content = <Video getFieldDecorator={getFieldDecorator} {...mod} />;
         break;
       case "trivia":
         content = null;
         break;
       case "slideshow":
-        content = <SlideShow getFieldDecorator={getFieldDecorator} />;
+        content = <SlideShow getFieldDecorator={getFieldDecorator} {...mod} />;
         break;
       case "diy":
-        content = <DIY getFieldDecorator={getFieldDecorator} />;
+        content = <DIY getFieldDecorator={getFieldDecorator} {...mod} />;
         break;
       case "anecdote":
-        content = <Anecdote getFieldDecorator={getFieldDecorator} />;
+        content = <Anecdote getFieldDecorator={getFieldDecorator} {...mod} />;
         break;
       case "joke":
-        content = <Joke getFieldDecorator={getFieldDecorator} />;
+        content = <Joke getFieldDecorator={getFieldDecorator} {...mod} />;
         break;
       default:
         content = null;

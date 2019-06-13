@@ -21,9 +21,20 @@ export default class Factoid extends React.Component {
           {getFieldDecorator("image", {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile,
-            initialValue: image
+            initialValue: image,
+            rules: [
+              {
+                required: true,
+                message: "Please upload images!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="image/*"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -34,9 +45,20 @@ export default class Factoid extends React.Component {
           {getFieldDecorator("audio", {
             valuePropName: "fileList",
             getValueFromEvent: this.normFile,
-            initialValue: audio
+            initialValue: audio,
+            rules: [
+              {
+                required: true,
+                message: "Please upload audios!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>

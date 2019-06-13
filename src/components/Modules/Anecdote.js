@@ -5,16 +5,28 @@ const uploadURL = "http://localhost:8000/upload";
 
 export default class Anecdote extends React.Component {
   render() {
-    const { getFieldDecorator } = this.props;
+    const { getFieldDecorator, image, audio } = this.props;
 
     return (
       <React.Fragment>
         <Form.Item label="Image">
           {getFieldDecorator("image", {
             valuePropName: "fileList",
-            getValueFromEvent: this.normFile
+            getValueFromEvent: this.normFile,
+            initialValue: image,
+            rules: [
+              {
+                required: true,
+                message: "Please upload images!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="image/*"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -24,9 +36,21 @@ export default class Anecdote extends React.Component {
         <Form.Item label="Audio">
           {getFieldDecorator("audio", {
             valuePropName: "fileList",
-            getValueFromEvent: this.normFile
+            getValueFromEvent: this.normFile,
+            initialValue: audio,
+            rules: [
+              {
+                required: true,
+                message: "Please upload images!"
+              }
+            ]
           })(
-            <Upload name="sampleFile" action={uploadURL} listType="picture">
+            <Upload
+              name="sampleFile"
+              action={uploadURL}
+              listType="picture"
+              accept="audio/mp3"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>

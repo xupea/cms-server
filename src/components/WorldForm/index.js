@@ -82,7 +82,6 @@ export default class WorldForm extends React.Component {
       console.log("array");
       return e;
     }
-    console.log("not array");
     return e && e.fileList;
   };
 
